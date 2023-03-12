@@ -1,0 +1,23 @@
+button.bigbutton {
+  width: fit-content;
+  place-self: center;
+  border: 2px solid var(--light-orange);
+  border-radius: 20px;
+  margin: 2rem 0 2rem 0;
+  background-color: white;
+  font-size: 0.95rem;
+  padding: 5px 25px;
+  color: var(--dark-orange);
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  font-family: 'M PLUS Rounded 1c';
+}
+
+button.bigbutton:hover {
+  background-color: var(--dark-orange);
+  border: 2px solid var(--dark-orange);
+  color: white;
+  box-shadow: none;
+  margin: 2.1rem 0 1.9rem 0;
+}

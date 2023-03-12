@@ -1,0 +1,19 @@
+.phonemenuvisible > .logoutbutton,
+.phonemenuhidden > .logoutbutton {
+  background-color: white;
+  border: 2px solid var(--light-orange);
+  margin: 5px;
+  font-size: 0.95rem;
+  border-radius: 20px;
+  cursor: pointer;
+  padding: 5px;
+  font-weight: bold;
+  color: var(--dark-orange);
+}
+
+.phonemenuvisible > .logoutbutton:hover,
+.phonemenuhidden > .logoutbutton:hover {
+  border-color: var(--dark-orange);
+  background-color: var(--dark-orange);
+  color: white;
+}

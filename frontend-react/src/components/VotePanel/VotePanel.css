@@ -1,0 +1,12 @@
+.votepanel {
+  padding-right: 20px;
+  background-color: white;
+  border-radius: 0 0 20px 20px;
+  width: min-content;
+  align-items: center;
+  justify-content: flex-end;
+  grid-area: votes;
+  display: flex;
+  justify-self: end;
+  gap: 10px;
+}

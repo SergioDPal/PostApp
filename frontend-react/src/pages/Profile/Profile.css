@@ -1,0 +1,95 @@
+section.userprofile {
+  border: 2px solid var(--light-orange);
+  background-color: white;
+  border-radius: 6px;
+  max-width: 500px;
+  width: 85%;
+  display: flex;
+  flex-direction: column;
+  place-self: center;
+  justify-content: space-between;
+  margin: 45px 25px 10px 25px;
+  box-shadow: 4px 4px 10px var(--dark-shadow);
+}
+
+section.userprofile > img.avatar {
+  margin: 1rem;
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border: 2px solid var(--light-orange);
+  place-self: center;
+}
+
+section.userprofile > h2 {
+  color: var(--dark-orange);
+  padding: 5px;
+  background-color: white;
+  border-radius: 5px 5px 0 0;
+  border-bottom: 2px solid var(--light-orange);
+}
+section.userprofile > ul.userdata {
+  column-gap: 5px;
+  row-gap: 5px;
+  align-items: center;
+  list-style: none;
+  padding: 15px;
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: minmax(2rem, min-content) minmax(2rem, min-content) minmax(
+      2rem,
+      min-content
+    );
+  grid-template-areas:
+    'emailkey emailvalue'
+    'datekey datevalue'
+    'postskey postsvalue';
+  background-color: white;
+  border-radius: 0 0 6px 6px;
+}
+
+section.userprofile > ul.userdatashort {
+  list-style: none;
+  padding: 15px;
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: 2rem 2rem;
+  grid-template-areas:
+    'datekey datevalue'
+    'postskey postsvalue';
+  column-gap: 5px;
+  row-gap: 5px;
+  background-color: white;
+  border-radius: 0 0 6px 6px;
+}
+
+section.userprofile > ul > li.emailkey {
+  color: var(--dark-orange);
+  font-weight: bold;
+  grid-area: emailkey;
+}
+
+section.userprofile > ul > li.emailvalue {
+  grid-area: emailvalue;
+}
+
+section.userprofile > ul > li.datekey {
+  color: var(--dark-orange);
+  font-weight: bold;
+  grid-area: datekey;
+}
+
+section.userprofile > ul > li.datevalue {
+  grid-area: datevalue;
+}
+
+section.userprofile > ul > li.postskey {
+  color: var(--dark-orange);
+  font-weight: bold;
+  grid-area: postskey;
+}
+
+section.userprofile > ul > li.postsvalue {
+  grid-area: postsvalue;
+}

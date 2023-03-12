@@ -1,0 +1,33 @@
+form.deleteuserform {
+  width: 100%;
+  height: 100%;
+  padding-top: 1rem;
+  border: 2px solid var(--light-orange);
+  color: white;
+  background-color: white;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  place-self: center;
+  box-shadow: 4px 4px 10px var(--dark-shadow);
+}
+
+form.deleteuserform > input {
+  width: 75%;
+  appearance: none;
+  outline: none;
+  margin-top: 10px;
+  border: 1px var(--light-orange);
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: solid;
+  padding: 5px;
+  font-size: medium;
+  color: rgb(72, 71, 71);
+}
+
+form.deleteuserform > input.deleteuser::placeholder {
+  color: var(--dark-orange);
+}

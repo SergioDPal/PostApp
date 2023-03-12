@@ -1,0 +1,75 @@
+@keyframes like {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-30deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@-webkit-keyframes like {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-30deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+img.icon {
+  cursor: pointer;
+}
+
+img.icon:hover {
+  width: 30px;
+}
+
+img.likeicon {
+  cursor: pointer;
+  max-width: 24px;
+}
+
+img.likeicon:hover {
+  animation: like 0.75s linear infinite;
+  -webkit-animation: like 0.75s linear infinite;
+}
+
+@keyframes dislike {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(30deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@-webkit-keyframes dislike {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(30deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+img.dislikeicon {
+  cursor: pointer;
+  max-width: 24px;
+}
+
+img.dislikeicon:hover {
+  animation: dislike 1s linear infinite;
+  -webkit-animation: dislike 1s linear infinite;
+}

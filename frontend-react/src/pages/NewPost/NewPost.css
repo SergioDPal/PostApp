@@ -1,0 +1,79 @@
+section.newpostwrapper {
+  width: 80%;
+  max-width: 500px;
+  place-self: center;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  margin: 4rem;
+  height: 100%;
+}
+section.newpostwrapper > form.newpostform {
+  width: 100%;
+  height: 100%;
+  border: 2px solid var(--light-orange);
+  color: white;
+  background-color: white;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  place-self: center;
+  box-shadow: 4px 4px 10px var(--dark-shadow);
+}
+
+section.newpostwrapper > form.newpostform > section.textareawrapper {
+  width: 100%;
+}
+
+section.newpostwrapper
+  > form.newpostform
+  > section.textareawrapper
+  > textarea.titletext {
+  border-radius: 7px 7px 0 0;
+  overflow: hidden;
+  font: inherit;
+  width: 100%;
+  appearance: none;
+  outline: none;
+  background-image: linear-gradient(to right, var(--dark-orange), white);
+  border: var(--light-orange);
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  padding: 5px;
+  resize: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+}
+
+section.newpostwrapper
+  > form.newpostform
+  > section.textareawrapper
+  > textarea.titletext::placeholder {
+  color: white;
+}
+
+section.newpostwrapper
+  > form.newpostform
+  > section.textareawrapper
+  > textarea.contenttext {
+  border-radius: 0 0 7px 7px;
+  overflow: hidden;
+  font: inherit;
+  width: 100%;
+  min-height: 10rem;
+  appearance: none;
+  outline: none;
+  background-color: white;
+  border: var(--light-orange);
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  padding: 5px;
+  resize: none;
+  font-size: medium;
+  color: black;
+}

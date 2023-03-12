@@ -1,0 +1,83 @@
+ul.userpostlist {
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  place-self: center;
+}
+
+ul.userpostlist > li {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  padding: 0 15px;
+}
+
+ul.userpostlist > li > .postbox {
+  width: 100%;
+  max-width: 800px;
+  border: 2px solid var(--light-orange);
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 2rem minmax(3rem, min-content) 1.5rem;
+  grid-template-areas:
+    'title'
+    'content'
+    'votes';
+  justify-content: space-between;
+  margin: 10px;
+  background-color: white;
+  box-shadow: 4px 4px 10px var(--dark-shadow);
+}
+
+ul.userpostlist > li > .postbox > .postheader {
+  color: white;
+  border-radius: 8px 8px 0 0;
+  padding: 0 5px 0 10px;
+  /* background-color: var(--dark-orange); */
+  background-image: linear-gradient(to right, var(--dark-orange), white);
+  grid-area: title;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+}
+ul.userpostlist > li > .postbox > .postheader > .posttitle {
+  font-weight: bold;
+}
+
+ul.userpostlist > li > .postbox > .postheader > .posttitle:hover {
+  font-size: 1.1rem;
+}
+
+ul.userpostlist > li > .postbox > .postheader > .postauthor {
+  font-weight: bold;
+  font-size: 0.7rem;
+  color: var(--dark-orange);
+}
+
+ul.userpostlist > li > .postbox > .postheader > .postauthor:hover {
+  font-size: 0.9rem;
+}
+
+ul.userpostlist > li > .postbox > .postheader > a {
+  color: white;
+}
+
+ul.userpostlist > li > .postbox > .postcontent {
+  text-align: start;
+  min-height: 100%;
+  background-color: white;
+  padding: 5px 8px;
+  grid-area: content;
+  align-self: center;
+  display: flex;
+}
+
+ul.userpostlist > li > .postbox > .postheader > a > p.posttitle {
+  font-weight: bold;
+}

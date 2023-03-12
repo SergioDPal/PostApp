@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@300;400;500&family=M+PLUS+Rounded+1c:wght@400;500;800;900&family=Montserrat:wght@400;700;900&family=Poppins:wght@300;400;500&family=Roboto:wght@300&display=swap');
+
+:root {
+  --dark-orange: #db7a20;
+  --light-orange: #e3b55e;
+  --dark-shadow: #23232364;
+  --light-shadow: #ffffff77;
+  --light-yellow: #f4ede0;
+  --shadow: 4px 4px 10px var(--dark-shadow);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+#root {
+  font-family: 'M PLUS Rounded 1c';
+  text-align: center;
+  height: 100%;
+}
+
+main {
+  background-color: var(--light-yellow);
+  height: 100%;
+  margin: 69px 0 0 0;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+header.mainheader {
+  height: 69px;
+  display: flex;
+  background-color: rgba(255, 255, 255, 0.91);
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
+  padding: 1rem;
+  position: fixed;
+  top: 0;
+  z-index: 2;
+  width: 100%;
+  box-shadow: none;
+  border-bottom: 2px solid var(--dark-orange);
+  box-shadow: 6px 6px 15px var(--dark-shadow);
+}
+
+header.mainheader > img {
+  height: 40px;
+}
+
+header > a > h1 {
+  font-size: 25px;
+  color: var(--dark-orange);
+
+  padding: 0 10px;
+  border-radius: 5px;
+  width: fit-content;
+  height: fit-content;
+}
+a {
+  text-decoration: none;
+  color: black;
+}
+
+@media screen and (min-width: 700px) and (max-width: 1200px) {
+  html {
+    font-size: 23px;
+  }
+
+  header.mainheader > a > h1 {
+    place-self: center;
+    font-size: 1.5rem;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  main {
+    padding-left: 200px;
+  }
+  header.mainheader {
+    height: 69px;
+    display: flex;
+    background-color: rgba(255, 255, 255, 0.91);
+    justify-content: flex-start;
+    justify-items: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    z-index: 2;
+    width: 100%;
+    box-shadow: none;
+    border-bottom: 2px solid var(--dark-orange);
+    box-shadow: 6px 6px 15px var(--dark-shadow);
+  }
+
+  header.mainheader > img {
+    height: 45px;
+  }
+
+  header.mainheader > a > h1 {
+    color: var(--dark-orange);
+  }
+
+  header > a > h1:hover {
+    font-size: 1.6rem;
+  }
+}

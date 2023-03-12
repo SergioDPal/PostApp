@@ -1,0 +1,51 @@
+section.registerwrapper {
+  width: 100%;
+  max-width: 500px;
+  place-self: center;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  margin: 3rem 0 1rem 0;
+}
+
+section.registerwrapper > form.registerform {
+  padding-top: 1rem;
+  width: 100%;
+  height: 100%;
+  border: 2px solid var(--light-orange);
+  color: white;
+  background-color: white;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  place-self: center;
+  box-shadow: 4px 4px 10px var(--dark-shadow);
+}
+
+section.registerwrapper > form.registerform > input {
+  width: 75%;
+  appearance: none;
+  outline: none;
+  margin-top: 10px;
+  border: 1px var(--light-orange);
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: solid;
+  padding: 5px;
+  font-size: medium;
+  color: var(--dark-orange);
+}
+
+section.registerwrapper > form.registerform > input.username::placeholder {
+  color: var(--light-orange);
+}
+
+section.registerwrapper > form.registerform > input.email::placeholder {
+  color: var(--light-orange);
+}
+
+section.registerwrapper > form.registerform > input.password::placeholder {
+  color: var(--light-orange);
+}
