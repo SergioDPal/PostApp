@@ -3,7 +3,7 @@
 const getDB = require('../../getConnection');
 const { generateError } = require('../../../helpers');
 
-const selectUserPostQuery = async (id) => {
+const selectUserPostQuery = async (id, offset) => {
   let connection;
 
   try {
@@ -18,8 +18,8 @@ const selectUserPostQuery = async (id) => {
             LEFT JOIN votes AS v ON (v.id_post = p.id)
             WHERE p.id_user = ?
             GROUP BY p.id
-            ORDER BY p.createdAt DESC`,
-      [id, id]
+            ORDER BY p.id DESC LIMIT 10 OFFSET ?`,
+      [id, id, offset]
     );
     if (posts.length < 1) {
       generateError('Post no encontrado', 404);

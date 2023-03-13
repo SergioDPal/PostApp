@@ -12,6 +12,7 @@ const useRequestHandler = (callback) => {
             setResponse(res);
           }
         } catch (err) {
+          console.log(err);
           err.status === 404 &&
             setResponse({ ok: false, status: 404, message: 'Not found' });
           err.message === 'Failed to fetch' &&

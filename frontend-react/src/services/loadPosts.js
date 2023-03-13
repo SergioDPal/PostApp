@@ -1,10 +1,14 @@
 import { throwError } from '../helpers';
 
-const loadPosts = async (setListState, token, url = '', id) => {
+const loadPosts = async (listState = [], setListState, token, url = '', id) => {
   let resPosts;
   const requestOptions = {
     method: 'GET',
-    headers: { 'Content-Type': 'application/json', Authorization: token },
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: token,
+      offset: listState?.length === 0 ? 0 : listState.length,
+    },
   };
   if (id) {
     resPosts = await fetch(
@@ -20,15 +24,28 @@ const loadPosts = async (setListState, token, url = '', id) => {
   const bodyMessages = await resPosts.json();
   if (resPosts.ok) {
     if (id) {
-      setListState(bodyMessages.data.post);
+      setListState([...listState, ...bodyMessages.data.post]);
       return resPosts;
     } else {
-      setListState(bodyMessages.data.posts);
+      const filteredMessages = bodyMessages.data.posts.filter((post) => {
+        let found = false;
+        for (const listpost of listState) {
+          if (listpost.id === post.id) {
+            found = true;
+          } else continue;
+        }
+
+        return !found && post;
+      });
+      setListState([...listState, ...filteredMessages]);
       return resPosts;
     }
   } else {
-    setListState(resPosts.status, bodyMessages.message);
-    throwError(resPosts.status, bodyMessages.message);
+    if (listState.length === 0) {
+      setListState(resPosts.status, bodyMessages.message);
+    }
+    if (resPosts.status === 404 && listState.length !== 0) {
+    } else throwError(resPosts.status, bodyMessages.message);
   }
 };
 

@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { createRef, useContext, useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { LoginDataContext } from '../../context/LoginDataProvider';
 import { loadPosts } from '../../services';
@@ -11,8 +11,21 @@ const UserPostList = () => {
   const { token } = useContext(LoginDataContext);
   const [userPostList, setUserPostlist] = useState([]);
 
-  useRequestHandler(() => loadPosts(setUserPostlist, token, 'user'));
-
+  useRequestHandler(() =>
+    loadPosts(userPostList, setUserPostlist, token, 'user')
+  );
+  const ref = createRef();
+  useEffect(() => {
+    window.addEventListener('scroll', (e) => {
+      const endOfScroll =
+        window.visualViewport.height + window.scrollY ===
+        ref?.current?.offsetHeight + ref?.current?.offsetTop;
+      if (endOfScroll) {
+        loadPosts(userPostList, setUserPostlist, token);
+        console.log(userPostList);
+      }
+    });
+  }, [ref, userPostList, token]);
   return userPostList === 404 ? (
     <>
       <p className="nocontentmessage">You haven't published anything yet.</p>
@@ -24,7 +37,10 @@ const UserPostList = () => {
     </>
   ) : userPostList?.length > 0 ? (
     <>
-      <ul className="userpostlist">
+      <ul
+        className="userpostlist"
+        ref={ref}
+      >
         {userPostList.map((post) => {
           return (
             <li key={post.id}>

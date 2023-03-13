@@ -4,9 +4,11 @@ const selectUserPostQuery = require('../../bbdd/queries/posts/selectUserPostQuer
 
 const userPostList = async (req, res, next) => {
   const id = req.user?.id;
+  const offset = Number(req.headers.offset) ? Number(req.headers.offset) : 0;
+
   try {
     // Lista de posts.
-    const posts = await selectUserPostQuery(id);
+    const posts = await selectUserPostQuery(id, offset);
 
     res.send({
       status: 'ok',
