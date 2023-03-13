@@ -30,7 +30,7 @@ const fetchUntilRes = (callback, setResponse) => {
         clearInterval(interval);
       }
     } catch (err) {
-      console.log(err);
+      err.status === 404 ? clearInterval(interval) : console.log(err);
     }
   }, 5000);
 };

@@ -210,7 +210,12 @@
   cursor: pointer;
 }
 @media screen and (min-width: 1200px) {
+  .menuwrappervisible {
+    display: hidden;
+  }
   .phonemenuhidden {
+    animation: none;
+    transition: none;
     padding: 25px 1% 0 1%;
 
     visibility: visible;
@@ -231,6 +236,7 @@
     visibility: hidden;
   }
   .menuwrapperhidden {
+    animation: none;
     visibility: visible;
     opacity: 1;
     background-color: transparent;
