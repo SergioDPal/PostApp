@@ -21,21 +21,18 @@ const Register = () => {
         setEmail('');
         setUserName('');
         setPassword('');
-        setFadingMessage('¡Te has registrado con éxito!');
+        setFadingMessage('Registered successfully!');
         nav('/login');
       }
     } catch (err) {
       if (err.status === 409) {
-        setFadingMessage('El usuario ya existe.', true);
+        setFadingMessage('User already exists.', true);
         return;
       } else if (err.status === 400) {
-        setFadingMessage('Alguno de los campos está vacío.', true);
+        setFadingMessage('Please fill all the fields', true);
         return;
       }
-      setFadingMessage(
-        'Algo ha ido mal. Asegúrate de que los datos sean correctos.',
-        true
-      );
+      setFadingMessage('Something went wrong. Please try again.', true);
     }
   };
 
@@ -46,7 +43,7 @@ const Register = () => {
         onSubmit={handleSubmit}
       >
         <input
-          placeholder="Nombre"
+          placeholder="Name"
           type="text"
           value={userName}
           onChange={(e) => {
@@ -68,7 +65,7 @@ const Register = () => {
         ></input>
 
         <input
-          placeholder="Contraseña"
+          placeholder="Password"
           type="password"
           value={password}
           onChange={(e) => {
@@ -77,7 +74,7 @@ const Register = () => {
           className="password"
           required
         ></input>
-        <BigButton>Registrarse</BigButton>
+        <BigButton>Register</BigButton>
       </form>
     </section>
   );

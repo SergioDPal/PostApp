@@ -4,9 +4,24 @@
   border-radius: 0 0 20px 20px;
   width: min-content;
   align-items: center;
-  justify-content: flex-end;
+  justify-self: flex-end;
   grid-area: votes;
-  display: flex;
-  justify-self: end;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: 30px 30px 30px;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  justify-items: center;
+}
+
+p.greenlikes {
+  color: green;
+}
+
+p.redlikes {
+  color: red;
+}
+
+p.blacklikes {
+  color: black;
 }

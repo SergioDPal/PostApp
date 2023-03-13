@@ -27,6 +27,7 @@ const loadPosts = async (setListState, token, url = '', id) => {
       return resPosts;
     }
   } else {
+    setListState(resPosts.status, bodyMessages.message);
     throwError(resPosts.status, bodyMessages.message);
   }
 };

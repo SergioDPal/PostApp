@@ -38,7 +38,13 @@ const VotePanel = ({ post }) => {
     <section className="votepanel">
       {buildVoteButton('dislike')}
 
-      <p>{likes}</p>
+      <p
+        className={
+          likes > 0 ? 'greenlikes' : likes === 0 ? 'blacklikes' : 'redlikes'
+        }
+      >
+        {likes}
+      </p>
 
       {buildVoteButton('like')}
     </section>

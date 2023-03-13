@@ -16,9 +16,9 @@ const DeleteUser = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (window.confirm('¿Estás seguro de querer borrar tu usuario?')) {
+    if (window.confirm('Are you sure you want to delete your account?')) {
       if (!password) {
-        setFadingMessage('Debes introducir tu contraseña.', true);
+        setFadingMessage('Please enter your password.', true);
       } else {
         try {
           const deleteSuccess = await deleteUser(password, token);
@@ -47,13 +47,13 @@ const DeleteUser = () => {
       <input
         className="deleteuser"
         name="deleteuser"
-        placeholder="Contraseña"
+        placeholder="Password"
         type="password"
         required
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       ></input>
-      <BigButton>Eliminar usuario</BigButton>
+      <BigButton>Delete account</BigButton>
     </form>
   );
 };

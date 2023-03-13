@@ -21,7 +21,6 @@ const useRequestHandler = (callback) => {
       tryFirstFetch();
     }
   }, [callback, response]);
-  return response;
 };
 
 const fetchUntilRes = (callback, setResponse) => {
@@ -33,7 +32,9 @@ const fetchUntilRes = (callback, setResponse) => {
         clearInterval(interval);
       }
     } catch (err) {
-      console.log(err.message);
+      err.message === 'Failed to fetch'
+        ? console.log(err.message)
+        : clearInterval(interval);
     }
   }, 5000);
 };

@@ -40,8 +40,8 @@ const PhoneMenu = () => {
               <NavLink to={`/user/${loggedUser.id}`}>
                 {`${loggedUser.name}`}
               </NavLink>
-              <NavLink to="/newpost">Nuevo Post</NavLink>
-              <NavLink to="/user/posts">Mis Posts</NavLink>
+              <NavLink to="/newpost">New post</NavLink>
+              <NavLink to="/user/posts">My posts</NavLink>
 
               <Logout
                 setToken={setToken}

@@ -18,7 +18,7 @@ const Loading = () => {
       </div>
 
       <section className="loadingtext">
-        <p>Cargando</p>
+        <p>Loading</p>
         <p className="p1">.</p>
         <p className="p2">.</p>
         <p className="p3">.</p>

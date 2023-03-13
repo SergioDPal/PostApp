@@ -23,7 +23,10 @@ const EditUser = () => {
       (!userName && !email && !newPassword && !deleteAvatar && !avatar) ||
       !oldPassword
     ) {
-      setFadingMessage('¡Mínimo un campo y contraseña actual!', true);
+      setFadingMessage(
+        'You need to fill at least one field and your current password.',
+        true
+      );
     } else {
       try {
         const formData = new FormData();
@@ -47,10 +50,10 @@ const EditUser = () => {
           if (deleteAvatar) changedValues = { ...changedValues, avatar: 0 };
 
           setLoggedUser({ ...loggedUser, ...changedValues });
-          setFadingMessage('¡Usuario editado!');
+          setFadingMessage('User updated successfully!');
         }
       } catch (err) {
-        setFadingMessage('¡Error al editar usuario!', true);
+        setFadingMessage('Something happened, please try again.', true);
       }
       setDeleteAvatar(false);
       setUserName('');
@@ -107,7 +110,7 @@ const EditUser = () => {
                     htmlFor="deleteavatar"
                     className="deleteavatar"
                   >
-                    Eliminar avatar
+                    Remove avatar
                   </label>
                 </>
               )}
@@ -137,7 +140,7 @@ const EditUser = () => {
 
           <input
             className="name"
-            placeholder="Nombre"
+            placeholder="Name"
             type="text"
             value={userName}
             onChange={(e) => {
@@ -160,7 +163,7 @@ const EditUser = () => {
 
           <input
             className="password"
-            placeholder="Nueva Contraseña"
+            placeholder="New password"
             type="password"
             value={newPassword}
             onChange={(e) => {
@@ -168,7 +171,7 @@ const EditUser = () => {
             }}
             name="newPassword"
           ></input>
-          <label htmlFor="oldpassword">Contraseña:</label>
+          <label htmlFor="oldpassword">Password:</label>
           <input
             className="oldpassword"
             type="password"
@@ -179,7 +182,7 @@ const EditUser = () => {
             name="oldPassword"
             required
           ></input>
-          <BigButton>Guardar cambios</BigButton>
+          <BigButton>Save changes</BigButton>
         </form>
 
         <DeleteUser />

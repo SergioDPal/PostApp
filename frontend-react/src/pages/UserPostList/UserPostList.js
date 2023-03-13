@@ -11,11 +11,9 @@ const UserPostList = () => {
   const { token } = useContext(LoginDataContext);
   const [userPostList, setUserPostlist] = useState([]);
 
-  const res = useRequestHandler(() =>
-    loadPosts(setUserPostlist, token, 'user')
-  );
+  useRequestHandler(() => loadPosts(setUserPostlist, token, 'user'));
 
-  return res?.status === 404 ? (
+  return userPostList === 404 ? (
     <>
       <p className="nocontentmessage">You haven't published anything yet.</p>
       <img

@@ -23,13 +23,13 @@ const NewPost = () => {
         const res = await uploadPost(postTitle, postContent, token);
         setPostTitle('');
         setPostContent('');
-        setFadingMessage('¡Post creado!');
+        setFadingMessage('Post published!');
         res && nav(`/post/${res.response}`);
       } catch (err) {
         setFadingMessage(err.message, true);
       }
     } else {
-      setFadingMessage('¡Ningún campo puede estar vacío!', true);
+      setFadingMessage('Please fill both fields.', true);
     }
   };
 
@@ -43,7 +43,7 @@ const NewPost = () => {
         <section className="textareawrapper">
           <ReactTextareaAutosize
             className="titletext"
-            placeholder="Título"
+            placeholder="Title"
             type="text"
             value={postTitle}
             maxLength="60"
@@ -56,7 +56,7 @@ const NewPost = () => {
 
           <ReactTextareaAutosize
             className="contenttext"
-            placeholder="Contenido"
+            placeholder="Content"
             type="text"
             value={postContent}
             data-autoresize
@@ -68,7 +68,7 @@ const NewPost = () => {
           ></ReactTextareaAutosize>
         </section>
       </form>
-      <BigButton form="newpostform">Publicar</BigButton>
+      <BigButton form="newpostform">Post</BigButton>
     </section>
   );
 };

@@ -2,7 +2,7 @@ import { useContext, useState } from 'react';
 import { useParams } from 'react-router';
 import { NavLink } from 'react-router-dom';
 import { getUserProfile } from '../../services';
-import { Loading } from '../Loading/Loading';
+import { Loading } from '../../components/Loading/Loading';
 import { LoginDataContext } from '../../context/LoginDataProvider';
 import { useRequestHandler } from '../../hooks/useRequestHandler';
 import './Profile.css';
@@ -32,8 +32,8 @@ const Profile = () => {
         <h2>{`${profileData.name}`}</h2>
         <ul className={profileData.email ? 'userdata' : 'userdatashort'}>
           {profileData.email ? <li className="emailkey">Email </li> : null}
-          <li className="datekey">Fecha de registro</li>
-          <li className="postskey"> Posts publicados</li>
+          <li className="datekey">User since</li>
+          <li className="postskey"> Post count</li>
 
           {profileData.email && (
             <li className="emailvalue">{profileData.email}</li>
@@ -49,7 +49,7 @@ const Profile = () => {
           className="edituserbutton"
           to="/user/edit"
         >
-          <BigButton>Editar usuario</BigButton>
+          <BigButton>Edit user</BigButton>
         </NavLink>
       )}
     </>

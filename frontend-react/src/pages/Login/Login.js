@@ -16,7 +16,7 @@ const Login = () => {
     e.preventDefault();
 
     if (!password || !email) {
-      setFadingMessage('¡Rellena todos los campos!', true);
+      setFadingMessage('One or more of the fields are empty.', true);
     } else {
       try {
         const isLogged = await loginUser(
@@ -26,12 +26,12 @@ const Login = () => {
           setLoggedUser
         );
         if (isLogged.ok) {
-          setFadingMessage('¡Te has logueado con éxito!');
+          setFadingMessage('Logged in successfully!');
           nav('/');
         }
       } catch (err) {
         setFadingMessage(
-          'Error al iniciar sesión. Asegúrate de que las credenciales sean correctas.',
+          'There was an error logging in. Please try again.',
           true
         );
       }
@@ -58,7 +58,7 @@ const Login = () => {
         ></input>
 
         <input
-          placeholder="Contraseña"
+          placeholder="Password"
           type="password"
           value={password}
           onChange={(e) => {
