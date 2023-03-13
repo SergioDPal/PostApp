@@ -4,17 +4,27 @@ import { LoginDataContext } from '../../context/LoginDataProvider';
 import { loadPosts } from '../../services';
 import { VotePanel } from '../../components/VotePanel/VotePanel';
 import { useRequestHandler } from '../../hooks/useRequestHandler';
+import { Loading } from '../../components/Loading/Loading';
 import './UserPostList.css';
 
 const UserPostList = () => {
   const { token } = useContext(LoginDataContext);
   const [userPostList, setUserPostlist] = useState([]);
 
-  useRequestHandler(() => loadPosts(setUserPostlist, token, 'user'));
+  const res = useRequestHandler(() =>
+    loadPosts(setUserPostlist, token, 'user')
+  );
 
-  return typeof userPostList === 'string' ? (
-    <p className="errormessage">{userPostList}</p>
-  ) : (
+  return res?.status === 404 ? (
+    <>
+      <p className="nocontentmessage">You haven't published anything yet.</p>
+      <img
+        src="/icons/sad_emoji.svg"
+        alt="Sad Face"
+        className="emoji"
+      />
+    </>
+  ) : userPostList?.length > 0 ? (
     <>
       <ul className="userpostlist">
         {userPostList.map((post) => {
@@ -51,6 +61,8 @@ const UserPostList = () => {
         })}
       </ul>
     </>
+  ) : (
+    <Loading />
   );
 };
 

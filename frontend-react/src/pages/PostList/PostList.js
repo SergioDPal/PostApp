@@ -4,7 +4,7 @@ import { LoginDataContext } from '../../context/LoginDataProvider';
 import { loadPosts } from '../../services';
 import { VotePanel } from '../../components/VotePanel/VotePanel';
 import { useRequestHandler } from '../../hooks/useRequestHandler';
-import { Loading } from '../Loading/Loading';
+import { Loading } from '../../components/Loading/Loading';
 import './PostList.css';
 
 const PostList = () => {

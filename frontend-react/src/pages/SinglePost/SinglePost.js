@@ -4,7 +4,7 @@ import { loadPosts, updatePost } from '../../services';
 import { DeletePostButton } from '../../components/DeletePostButton/DeletePostButton';
 import { NavLink } from 'react-router-dom';
 import TextareaAutosize from 'react-textarea-autosize';
-import { Loading } from '../Loading/Loading';
+import { Loading } from '../../components/Loading/Loading';
 import { VotePanel } from '../../components/VotePanel/VotePanel';
 import { LoginDataContext } from '../../context/LoginDataProvider';
 import { FadingMessageContext } from '../../context/FadingBannerProvider';

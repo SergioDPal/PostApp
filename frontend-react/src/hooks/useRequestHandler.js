@@ -12,7 +12,10 @@ const useRequestHandler = (callback) => {
             setResponse(res);
           }
         } catch (err) {
-          fetchUntilRes(callback, setResponse);
+          err.status === 404 &&
+            setResponse({ ok: false, status: 404, message: 'Not found' });
+          err.message === 'Failed to fetch' &&
+            fetchUntilRes(callback, setResponse);
         }
       };
       tryFirstFetch();
@@ -30,7 +33,7 @@ const fetchUntilRes = (callback, setResponse) => {
         clearInterval(interval);
       }
     } catch (err) {
-      err.status === 404 ? clearInterval(interval) : console.log(err);
+      console.log(err.message);
     }
   }, 5000);
 };
