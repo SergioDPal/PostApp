@@ -34,9 +34,9 @@ async function createDatabaseContent() {
 
   for (let i = 0; i < 200; i++) {
     console.log('Inserting posts...');
-    const title = faker.lorem.sentence(5);
+    const title = faker.lorem.sentence(3);
     const content = faker.lorem.paragraph(3);
-    const id_user = Math.floor(Math.random() * 25) + 1;
+    const id_user = Math.floor(Math.random() * 100) + 1;
     if (
       insertPostQueryString.includes(title) ||
       insertPostQueryString.includes(content)
@@ -48,12 +48,12 @@ async function createDatabaseContent() {
   }
   insertPostQueryString = insertPostQueryString.slice(0, -3);
 
-  for (let i = 0; i < 500; i++) {
+  for (let i = 0; i < 3000; i++) {
     console.log('Inserting votes...');
     const likeValues = ['like', 'dislike'];
     const value = likeValues[Math.floor(Math.random() * likeValues.length)];
-    const id_user = Math.floor(Math.random() * 25) + 1;
-    const id_post = Math.floor(Math.random() * 50) + 1;
+    const id_user = Math.floor(Math.random() * 100) + 1;
+    const id_post = Math.floor(Math.random() * 200) + 1;
     if (insertVoteQueryString.includes(`'${id_user}', '${id_post}'`)) {
       i--;
       continue;

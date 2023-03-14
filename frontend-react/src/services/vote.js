@@ -1,3 +1,11 @@
+/**
+ * Sends the vote to the server. Saves the new vote or updates the value of the existing vote.
+ * @param {number} postId - The id of the post to vote.
+ * @param {string} value - The value of the vote.
+ * @param {string} token - The token of the user.
+ * @returns {object} - Response of the request.
+ * @example vote(1, 'like', 'token');
+ */
 const vote = async (postId, value, token) => {
   try {
     const requestOptions = {

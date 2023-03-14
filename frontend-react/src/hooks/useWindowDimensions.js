@@ -8,6 +8,11 @@ function getWindowDimensions() {
   };
 }
 
+/**
+ * @description - A hook that will return the width and height of the window when it is resized.
+ * @returns {object} - The width and height of the window.
+ * @example const { width, height } = useWindowDimensions();
+ */
 function useWindowDimensions() {
   const [windowDimensions, setWindowDimensions] = useState(
     getWindowDimensions()

@@ -1,5 +1,11 @@
 import { useEffect, useState } from 'react';
 
+/**
+ * @description - A hook that makes a first fetch and if it fails it will try again every 5 seconds until it succeeds.
+ * @param {callback} callback - The callback that will be executed.
+ * @returns {void}
+ * @example useRequestHandler(() => fetch('url'));
+ */
 const useRequestHandler = (callback) => {
   const [response, setResponse] = useState(null);
 

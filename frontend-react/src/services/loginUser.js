@@ -1,5 +1,15 @@
 import { throwError } from '../helpers';
 
+/**
+ * Checks with the database if the user data is correct. If it is, updates the token and the loggedUser.
+ * @param {string} email - Email of the user.
+ * @param {string} password - Password of the user.
+ * @param {function} setToken - Function to update the token.
+ * @param {function} setLoggedUser - Function to update the loggedUser.
+ * @returns {object} - Response of the request.
+ * @example loginUser('email', 'password', setToken, setLoggedUser);
+ * @throws {Error} - If there is an error connecting to the database or if the user data is incorrect.
+ */
 const loginUser = async (email, password, setToken, setLoggedUser) => {
   const requestOptions = {
     method: 'POST',

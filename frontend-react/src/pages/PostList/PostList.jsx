@@ -33,7 +33,6 @@ const PostList = () => {
                   to={`/post/${post.id}`}
                 >
                   <p>
-                    {post.id}
                     {post.title.length > 21
                       ? post.title.slice(0, 21) + '...'
                       : post.title}

@@ -1,5 +1,12 @@
 import { throwError } from '../helpers';
 
+/**
+ * Anonymizes the user from the database.
+ * @param {string} oldPwd - Old password of the user.
+ * @param {string} token - Token of the user.
+ * @returns {object} - Response of the request.
+ * @throws {Error} - If there is an error connecting to the database.
+ */
 const deleteUser = async (oldPwd, token) => {
   const requestOptions = {
     method: 'PUT',

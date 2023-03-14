@@ -8,7 +8,6 @@ import { createRef, useEffect } from 'react';
  *
  * @example - const ref = useBottomOfScroll(() => console.log('Bottom of page reached!'));
  */
-
 const useBottomOfScroll = (callback) => {
   const ref = createRef();
   useEffect(() => {

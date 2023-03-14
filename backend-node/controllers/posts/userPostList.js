@@ -9,7 +9,7 @@ const selectUserPostQuery = require('../../bbdd/queries/posts/selectUserPostQuer
  * @param {function} next - Next function.
  * @returns {void}
  * @example
- * userPostList(req, res, next);
+ * userPostList({headers:{offset:0},user:{id:1}},res,next);
  * @throws {Error} - If there is an error.
  */
 const userPostList = async (req, res, next) => {

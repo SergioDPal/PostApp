@@ -1,5 +1,15 @@
 import { throwError } from '../helpers';
 
+/**
+ * Updates the post data to the database.
+ * @param {string} token - Token of the user.
+ * @param {string} title - Title of the post.
+ * @param {string} content - Content of the post.
+ * @param {number} id - Id of the post.
+ * @returns {object} - Response of the request.
+ * @example updatePost('token', 'title', 'content', 1);
+ * @throws {Error} - If there is an error connecting to the database or if the post title already exists.
+ */
 const updatePost = async (token, title, content, id) => {
   let finalBody;
 

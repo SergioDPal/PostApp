@@ -26,6 +26,8 @@ SECRET= Any sequence of characters to hash passwords.
 REACT_APP_HOST=http://address
 ```
 
+# Starting the app
+
 Now we want to launch `InitDB.js` to create the DB Tables, and if you want something to look at, use `attTestContent.js` to generate random data. Both files located at `backend-node\bbdd\initDB.js`.
 
-All we have left to do is run the server typing npm start in your terminal at both root folders.
+All we have left to do is run the server typing `npm start` in your terminal at both root folders.
