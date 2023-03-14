@@ -2,17 +2,28 @@
 
 const selectUserByIdQuery = require('../../bbdd/queries/users/selectUserByIdQuery');
 
+/**
+ * Extracts the id from the request params and the user id from the request user and sends the user data.
+ * @param {object} req - Request object.
+ * @param {object} res - Response object.
+ * @param {function} next - Next function.
+ * @returns {void}
+ * @example getUserById({params: {id: 1} user: {id: 1}}, res, next);
+ */
 const getUserById = async (req, res, next) => {
-  const { id } = req.params;
-  const tokenId = req.user?.id;
+  const { id: idOfRequestedUser } = req.params;
+  const idOfRequestingUser = req.user?.id;
+
   try {
-    // Obtenemos la información del usuario.
-    const user = await selectUserByIdQuery(id, tokenId);
+    const user = await selectUserByIdQuery(
+      idOfRequestedUser,
+      idOfRequestingUser
+    );
 
     res.send({
       status: 'ok',
       data: {
-        message: 'datos usuario',
+        message: 'User data.',
         user,
       },
     });

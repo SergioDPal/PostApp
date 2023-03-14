@@ -3,6 +3,14 @@
 const getDB = require('../../getConnection');
 const { generateError } = require('../../../helpers');
 
+/**
+ * Selects a user's array of posts by its id.
+ * @param {number} id - Id of the user.
+ * @param {number} offset - Offset of the posts.
+ * @returns {object} - Object with the user's posts data.
+ * @example selectUserPostQuery(2,20)
+ * @throws {Error} - If the user or the post is not found.
+ */
 const selectUserPostQuery = async (id, offset) => {
   let connection;
 
@@ -26,7 +34,7 @@ const selectUserPostQuery = async (id, offset) => {
     }
     const checkedPosts = posts.map((post) => {
       if (post.status === 'deleted') {
-        post.name = 'Usuario eliminado';
+        post.name = 'Deleted user';
       }
       delete post.status;
       return post;

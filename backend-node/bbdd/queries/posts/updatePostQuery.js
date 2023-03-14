@@ -3,15 +3,25 @@
 const getDB = require('../../getConnection');
 const { generateError } = require('../../../helpers');
 
-const updateUserQuery = async (body, postID, user) => {
+/**
+ * Updates the post data in the database.
+ * @param {object} dataToUpdate - Data to update.
+ * @param {number} postID - Id of the post.
+ * @param {number} user - Id of the user.
+ * @returns {object} - Updated data.
+ * @example updatePostQuery({title: 'New title', content: 'New content'}, 1, 1);
+ * @throws {Error} - If there is an error.
+ * @throws {Error} - If there all fields are empty.
+ */
+const updatePostQuery = async (dataToUpdate, postID, user) => {
   let connection;
 
   try {
     connection = await getDB();
 
-    const { title, content } = body;
+    const { title, content } = dataToUpdate;
 
-    const bodyNames = Object.keys(body).sort();
+    const bodyNames = Object.keys(dataToUpdate).sort();
     let queryString = 'modifiedAt=?';
     let queryArray = [new Date()];
     for (const entry of bodyNames) {
@@ -33,12 +43,12 @@ const updateUserQuery = async (body, postID, user) => {
       queryArray
     );
 
-    return body;
+    return dataToUpdate;
   } catch (error) {
-    generateError('Error inesperado durante la solicitud', 500);
+    generateError('Unexpected error during the request.', 500);
   } finally {
     if (connection) connection.release();
   }
 };
 
-module.exports = updateUserQuery;
+module.exports = updatePostQuery;

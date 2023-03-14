@@ -1,4 +1,4 @@
-import { createRef, useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { LoginDataContext } from '../../context/LoginDataProvider';
 import { loadPosts } from '../../services';
@@ -6,6 +6,7 @@ import { VotePanel } from '../../components/VotePanel/VotePanel';
 import { useRequestHandler } from '../../hooks/useRequestHandler';
 import { Loading } from '../../components/Loading/Loading';
 import './UserPostList.css';
+import { useBottomOfScroll } from '../../hooks/useBottomOfScroll';
 
 const UserPostList = () => {
   const { token } = useContext(LoginDataContext);
@@ -14,18 +15,11 @@ const UserPostList = () => {
   useRequestHandler(() =>
     loadPosts(userPostList, setUserPostlist, token, 'user')
   );
-  const ref = createRef();
-  useEffect(() => {
-    window.addEventListener('scroll', (e) => {
-      const endOfScroll =
-        window.visualViewport.height + window.scrollY ===
-        ref?.current?.offsetHeight + ref?.current?.offsetTop;
-      if (endOfScroll) {
-        loadPosts(userPostList, setUserPostlist, token);
-        console.log(userPostList);
-      }
-    });
-  }, [ref, userPostList, token]);
+
+  const ref = useBottomOfScroll(() =>
+    loadPosts(userPostList, setUserPostlist, token, 'user')
+  );
+
   return userPostList === 404 ? (
     <>
       <p className="nocontentmessage">You haven't published anything yet.</p>

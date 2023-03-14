@@ -3,16 +3,23 @@
 const getDB = require('../../getConnection');
 const bcrypt = require('bcrypt');
 
+/**
+ * Inserts a user in the database.
+ * @param {string} name - Name of the user.
+ * @param {string} email - Email of the user.
+ * @param {string} password - Password of the user.
+ * @returns {void}
+ * @example insertUserQuery(name, email, password)
+ * @throws {Error} - If there is an error.
+ */
 const insertUserQuery = async (name, email, password) => {
   let connection;
 
   try {
     connection = await getDB();
 
-    // Encriptamos la contraseña.
     const hashedPass = await bcrypt.hash(password, 10);
 
-    // Insertamos el usuario.
     await connection.query(
       `INSERT INTO users (name, email, password) VALUES (?, ?, ?)`,
       [name, email, hashedPass]

@@ -4,6 +4,14 @@ const getDB = require('../../getConnection');
 
 const { generateError } = require('../../../helpers');
 
+/**
+ * Selects a user by its email.
+ * @param {string} email - Email of the user.
+ * @returns {object} - Object with the user data.
+ * @example selectUserByEmailQuery(email)
+ * @throws {Error} - If there is an error.
+ * @throws {Error} - If the user is not found.
+ */
 const selectUserByEmailQuery = async (email) => {
   let connection;
 
@@ -15,13 +23,9 @@ const selectUserByEmailQuery = async (email) => {
       [email]
     );
 
-    // Si el array de usuarios está vacío lanzo un error.
     if (users.length < 1) {
-      generateError('Usuario no encontrado', 404);
+      generateError('User not found.', 404);
     }
-
-    // Si existe algún usuario, sabemos que como máximo solo puede haber uno dado que el
-    // email no puede repetirse. Retornamos al usuario de la posición 0.
 
     return users[0];
   } finally {

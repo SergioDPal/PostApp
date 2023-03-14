@@ -24,7 +24,7 @@ const loadPosts = async (listState = [], setListState, token, url = '', id) => {
   const bodyMessages = await resPosts.json();
   if (resPosts.ok) {
     if (id) {
-      setListState([...listState, ...bodyMessages.data.post]);
+      setListState(bodyMessages.data.post);
       return resPosts;
     } else {
       const filteredMessages = bodyMessages.data.posts.filter((post) => {

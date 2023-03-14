@@ -3,13 +3,23 @@
 const { generateError } = require('../../../helpers');
 const getDB = require('../../getConnection');
 
+/**
+ * Inserts a vote in the database.
+ * @param {string} value - Value of the vote.
+ * @param {number} postId - Id of the post.
+ * @param {number} token - Id of the user.
+ * @returns {object} - Object with the value of the vote.
+ * @example insertVoteQuery(value, postId, token)
+ * @throws {Error} - If there is an error.
+ * @throws {Error} - If the vote already exists.
+ */
 const insertVoteQuery = async (value, postId, token) => {
   let connection;
 
   try {
     connection = await getDB();
 
-    const [prevVote] = await connection.query(
+    const [previousVote] = await connection.query(
       `
             SELECT value 
             FROM votes
@@ -18,7 +28,7 @@ const insertVoteQuery = async (value, postId, token) => {
       [postId, token]
     );
 
-    if (prevVote.length < 1) {
+    if (previousVote.length < 1) {
       await connection.query(
         `
                     INSERT INTO votes (value, id_post, id_user)
@@ -27,8 +37,8 @@ const insertVoteQuery = async (value, postId, token) => {
         [value, postId, token]
       );
     } else {
-      if (prevVote[0].value === value) {
-        generateError('Este voto ya existe', 400);
+      if (previousVote[0].value === value) {
+        generateError('This vote already exists.', 400);
       } else {
         await connection.query(
           `

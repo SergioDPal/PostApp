@@ -4,12 +4,12 @@ const newUser = require('./newUser');
 const loginUser = require('./loginUser');
 const getUserById = require('./getUserById');
 const editUser = require('./editUser');
-const deleteUser = require('./deleteUser');
+const anonymizeUser = require('./anonymizeUser');
 
 module.exports = {
-    deleteUser,
-    newUser,
-    loginUser,
-    getUserById,
-    editUser,
+  anonymizeUser,
+  newUser,
+  loginUser,
+  getUserById,
+  editUser,
 };

@@ -3,6 +3,13 @@ const generateError = require('../../../helpers');
 
 const getDB = require('../../getConnection');
 
+/**
+ * Anonymizes a user in the database by changing its name, email and password.
+ * @param {number} userId - Id of the user.
+ * @returns {void}
+ * @example anonymizeUserQuery(userId)
+ * @throws {Error} - If there is an error.
+ */
 const anonymizeUserQuery = async (userId) => {
   let connection;
 
@@ -24,7 +31,7 @@ const anonymizeUserQuery = async (userId) => {
       ]
     );
   } catch (error) {
-    generateError('Error inesperado durante la solicitud', 500);
+    generateError('Unexpected error during the request.', 500);
   } finally {
     if (connection) connection.release();
   }

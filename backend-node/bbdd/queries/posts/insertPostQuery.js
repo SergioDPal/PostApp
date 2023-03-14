@@ -2,6 +2,15 @@
 
 const getDB = require('../../getConnection');
 
+/**
+ * Inserts the post data in the database.
+ * @param {string} title - Title of the post.
+ * @param {string} content - Content of the post.
+ * @param {number} token - Id of the user.
+ * @returns {number} - Id of the post.
+ * @example insertPostQuery('Title', 'Content', 1);
+ * @throws {Error} - If there is a duplicate title.
+ */
 const insertPostQuery = async (title, content, token) => {
   let connection;
 
@@ -21,7 +30,7 @@ const insertPostQuery = async (title, content, token) => {
     if (err.errno === 1062)
       return {
         code: 409,
-        message: 'Título duplicado, por favor elige uno diferente.',
+        message: 'There is already a post with that title.',
       };
     throw err;
   } finally {

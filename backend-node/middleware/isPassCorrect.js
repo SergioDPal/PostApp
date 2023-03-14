@@ -4,6 +4,16 @@ const getDB = require('../bbdd/getConnection');
 const bcrypt = require('bcrypt');
 const { generateError } = require('../helpers');
 
+/**
+ * Checks if the password is correct.
+ * @param {object} req - Request object.
+ * @param {object} res - Response object.
+ * @param {function} next - Next function.
+ * @returns {void}
+ * @example isPassCorrect(req, res, next)
+ * @returns {void}
+ * @throws {Error} - If the password is not correct.
+ */
 const isPassCorrect = async (req, res, next) => {
   let connection;
   try {
@@ -22,7 +32,7 @@ const isPassCorrect = async (req, res, next) => {
     const validPass = await bcrypt.compare(passFromReq, dbPassword);
 
     if (!validPass) {
-      generateError('Contraseña incorrecta', 401);
+      generateError('Incorrect password.', 401);
     }
 
     next();

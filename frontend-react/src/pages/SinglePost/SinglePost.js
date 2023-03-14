@@ -20,7 +20,9 @@ const SinglePost = () => {
   const [isEditingPost, setIsEditingPost] = useState(false);
   const { id } = useParams();
 
-  useRequestHandler(() => loadPosts(setCurrentPost, token, 'user', id));
+  useRequestHandler(() =>
+    loadPosts(currentPost, setCurrentPost, token, 'user', id)
+  );
 
   const handleSubmit = async (e) => {
     e.preventDefault();

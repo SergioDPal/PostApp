@@ -4,6 +4,13 @@ const getDB = require('../../getConnection');
 const bcrypt = require('bcrypt');
 const { deleteAvatar, saveAvatar } = require('../../../helpers');
 
+/**
+ * Updates a user in the database.
+ * @param {object} data - Object with the data to update.
+ * @returns {void}
+ * @example updateUserQuery({ name: 'name', email: 'email', password: 'password', avatar: 'avatar', id: 1})
+ * @throws {Error} - If there is an error.
+ */
 const updateUserQuery = async (data) => {
   let connection;
 

@@ -3,6 +3,14 @@
 const getDB = require('../../getConnection');
 const { generateError } = require('../../../helpers');
 
+/**
+ * Selects all the posts from the database and returns 10 posts per page. If the user is logged in, it will return the value of the vote of the user.
+ * @param {number} userId - Id of the user.
+ * @param {number} offset - Offset of the posts.
+ * @returns {object} - Posts data.
+ * @example selectAllPostsQuery(1, 0);
+ * @throws {Error} - If there is an error.
+ */
 const selectAllPostsQuery = async (userId, offset) => {
   let connection;
   const queryWithId = `SELECT p.id, p.createdAt, p.title, p.content, u.name, u.status,  p.id_user,

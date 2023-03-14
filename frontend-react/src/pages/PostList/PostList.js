@@ -1,4 +1,4 @@
-import { createRef, useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { LoginDataContext } from '../../context/LoginDataProvider';
 import { loadPosts } from '../../services';
@@ -6,6 +6,7 @@ import { VotePanel } from '../../components/VotePanel/VotePanel';
 import { useRequestHandler } from '../../hooks/useRequestHandler';
 import { Loading } from '../../components/Loading/Loading';
 import './PostList.css';
+import { useBottomOfScroll } from '../../hooks/useBottomOfScroll';
 
 const PostList = () => {
   const { token } = useContext(LoginDataContext);
@@ -13,17 +14,7 @@ const PostList = () => {
 
   useRequestHandler(() => loadPosts(postList, setPostlist, token));
 
-  const ref = createRef();
-  useEffect(() => {
-    window.addEventListener('scroll', (e) => {
-      const endOfScroll =
-        window.visualViewport.height + window.scrollY ===
-        ref?.current?.offsetHeight + ref?.current?.offsetTop;
-      if (endOfScroll) {
-        loadPosts(postList, setPostlist, token);
-      }
-    });
-  }, [ref, postList, token]);
+  const ref = useBottomOfScroll(() => loadPosts(postList, setPostlist, token));
 
   return postList.length === 0 ? (
     <Loading />

@@ -4,21 +4,20 @@ require('dotenv').config();
 
 const getDB = require('./getConnection');
 
+// Function to create the database tables.
 async function createDatabase() {
-  // Variable que almacenará una conexión libre con la base de datos.
   let connection;
 
   try {
-    // Intentamos obtener una conexión libre.
     connection = await getDB();
 
-    console.log('Borrando tablas existentes...');
+    console.log('Deleting tables...');
 
     await connection.query('DROP TABLE IF EXISTS votes');
     await connection.query('DROP TABLE IF EXISTS posts');
     await connection.query('DROP TABLE IF EXISTS users');
 
-    console.log('Creando tablas...');
+    console.log('Creating tables...');
 
     await connection.query(`
             CREATE TABLE users (
@@ -59,17 +58,14 @@ async function createDatabase() {
         )
     `);
 
-    console.log('¡Tablas creadas!');
+    console.log('Tables created!');
   } catch (err) {
     console.error(err);
   } finally {
-    // Si hay conexión, la liberamos.
     if (connection) connection.release();
 
-    // Cerramos el proceso.
     process.exit();
   }
 }
 
-// Llamamos a la función anterior.
 createDatabase();

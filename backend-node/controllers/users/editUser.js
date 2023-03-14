@@ -1,7 +1,17 @@
 'use strict';
 
 const updateUserQuery = require('../../bbdd/queries/users/updateUserQuery');
-/* const { generateError } = require('../../helpers');
+
+/**
+ * Extracts the data from the request body and updates the user in the database. Responds with a message. The user can update any number of fields.
+ * @param {object} req - Request object.
+ * @param {object} res - Response object.
+ * @param {function} next - Next function.
+ * @returns {void}
+ * @example editUser(req, res, next)
+ * @returns {void}
+ * @throws {Error} - If there is an error.
+ * @throws {Error} - If there is no data.
  */
 const editUser = async (req, res, next) => {
   const { name, email, password, avatar } = req.body;
@@ -21,8 +31,8 @@ const editUser = async (req, res, next) => {
   if (!name && !email && !password && !data.avatar) {
     res.status(200).send({
       data: {
-        errorcode: 123,
-        message: 'No se ha introducido ningún dato',
+        errorcode: 412,
+        message: 'No data to update.',
       },
     });
   }
@@ -33,7 +43,7 @@ const editUser = async (req, res, next) => {
     res.send({
       status: 'ok',
       data: {
-        message: 'datos usuario actualizados',
+        message: 'User updated.',
       },
     });
   } catch (err) {

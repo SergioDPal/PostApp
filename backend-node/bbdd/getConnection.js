@@ -4,31 +4,34 @@ const mysql = require('mysql2/promise');
 
 const { MYSQL_HOST, MYSQL_USER, MYSQL_PASS, MYSQL_BBDD } = process.env;
 
-// Variable que almacenará un grupo de conexiones.
 let pool;
 
-// Función que retorna una conexión libre con la base de datos.
+/**
+ * Returns a connection to the database.
+ * @returns {Promise<Connection>} - Connection to the database.
+ * @example getDB();
+ * @throws {Error} - If there is an error.
+ * @throws {Error} - If there is an error connecting to the database.
+ */
 const getDB = async () => {
-    try {
-        // Si no existe un grupo de conexiones lo creamos.
-        if (!pool) {
-            pool = mysql.createPool({
-                connectionLimit: 10,
-                host: MYSQL_HOST,
-                user: MYSQL_USER,
-                password: MYSQL_PASS,
-                database: MYSQL_BBDD,
-                timezone: 'Z',
-            });
-        }
-
-        // Retornamos una conexión libre con la base de datos.
-        return await pool.getConnection();
-    } catch (err) {
-        console.error(err);
-
-        throw new Error('Error al conectar con MySQL');
+  try {
+    if (!pool) {
+      pool = mysql.createPool({
+        connectionLimit: 10,
+        host: MYSQL_HOST,
+        user: MYSQL_USER,
+        password: MYSQL_PASS,
+        database: MYSQL_BBDD,
+        timezone: 'Z',
+      });
     }
+
+    return await pool.getConnection();
+  } catch (err) {
+    console.error(err);
+
+    throw new Error('Error connecting to the database');
+  }
 };
 
 module.exports = getDB;

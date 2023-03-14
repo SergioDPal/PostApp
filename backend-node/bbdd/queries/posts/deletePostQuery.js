@@ -3,6 +3,13 @@ const generateError = require('../../../helpers');
 
 const getDB = require('../../getConnection');
 
+/**
+ * Deletes the post data in the database.
+ * @param {number} postId - Id of the post.
+ * @returns {void}
+ * @example deletePostQuery(1);
+ * @throws {Error} - If there is an error.
+ */
 const deletePostQuery = async (postId) => {
   let connection;
 
@@ -27,7 +34,7 @@ const deletePostQuery = async (postId) => {
       [postId]
     );
   } catch (err) {
-    generateError('Error inesperado durante la solicitud', 500);
+    generateError('Unexpected error during the request.', 500);
   } finally {
     if (connection) connection.release();
   }

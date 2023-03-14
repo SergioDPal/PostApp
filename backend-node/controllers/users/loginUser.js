@@ -6,34 +6,38 @@ const jwt = require('jsonwebtoken');
 
 const { generateError } = require('../../helpers');
 
+/**
+ * Extracts the email and password from the request body and checks if the user exists and the password is correct. If so, it generates a token and responds with a message and the token.
+ * @param {object} req - Request object.
+ * @param {object} res - Response object.
+ * @param {function} next - Next function.
+ * @returns {void}
+ * @example loginUser({body: {email: 'email', password: 'password'}}, res, next);
+ * @returns {void}
+ * @throws {Error} - If there is missing data.
+ * @throws {Error} - If the password is incorrect.
+ */
 const loginUser = async (req, res, next) => {
   try {
-    // Obtenemos los datos del body.
     const { email, password } = req.body;
 
-    // Si faltan campos lanzamos un error.
     if (!email || !password) {
-      generateError('Faltan campos', 400);
+      generateError('One or more fields are empty.', 400);
     }
 
-    // Localizamos al usuario con el email del body.
     const user = await selectUserByEmailQuery(email);
 
-    // Comprobamos si las contraseñas coinciden.
     const validPass = await bcrypt.compare(password, user.password);
 
-    // Si la contraseña es incorrecta lanzamos un error.
     if (!validPass) {
-      generateError('Contraseña incorrecta', 401);
+      generateError('Incorrect password.', 401);
     }
 
-    // Objeto con información que queremos agregar al token.
     const tokenInfo = {
       id: user.id,
       name: user.name,
     };
 
-    // Creamos el token.
     const token = jwt.sign(tokenInfo, process.env.SECRET, {
       expiresIn: '7d',
     });
@@ -47,7 +51,7 @@ const loginUser = async (req, res, next) => {
         email: user.email,
         createdAt: user.createdAt,
         avatar: user.avatar,
-        message: 'Usuario logueado',
+        message: 'User logged in.',
         token: token,
       },
     });

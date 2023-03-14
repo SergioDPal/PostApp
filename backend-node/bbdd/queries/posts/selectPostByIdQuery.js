@@ -4,6 +4,14 @@ const getDB = require('../../getConnection');
 
 const { generateError } = require('../../../helpers');
 
+/**
+ * Selects the post data from the database.
+ * @param {number} id - Id of the requested post.
+ * @param {number} userId - Id of the requesting user.
+ * @returns {object} - Post data.
+ * @example selectPostByIdQuery(1, 1);
+ * @throws {Error} - If there is no post with the requested id.
+ */
 const selectPostByIdQuery = async (id, userId) => {
   let connection;
 
@@ -31,7 +39,7 @@ const selectPostByIdQuery = async (id, userId) => {
     const post = posts[0];
 
     if (post.status === 'deleted') {
-      post.name = 'Usuario eliminado';
+      post.name = 'Deleted user';
     }
 
     delete post.status;
