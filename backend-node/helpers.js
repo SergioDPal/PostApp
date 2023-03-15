@@ -4,6 +4,7 @@ const path = require('path');
 const sharp = require('sharp');
 const fs = require('fs/promises');
 const { UPLOADS_DIR } = process.env;
+const { faker } = require('@faker-js/faker');
 
 /**
  * Throws an error with a custom message and code.
@@ -121,6 +122,77 @@ const getAvatarQueryAndHandleFile = (value, id) => {
   return queryString;
 };
 
+/**
+ * Returns the query strings to create random users, posts and votes.
+ *
+ * @param {number} userAmount - Amount of users to create.
+ * @param {number} postAmount - Amount of posts to create.
+ * @param {number} voteAmount - Amount of votes to create.
+ *
+ * @returns {array} - Array with the query strings to create random users, posts and votes.
+ *
+ * @example createTestContentQueries(10, 20, 30)
+ */
+const createTestContentQueries = (userAmount, postAmount, voteAmount) => {
+  let insertUserQueryString = `INSERT INTO users (name, email, password) VALUES (`;
+  let userCount = 0;
+  let insertPostQueryString = `INSERT INTO posts (title, content, id_user) VALUES (`;
+  let postCount = 0;
+  let insertVoteQueryString = `INSERT INTO votes (value, id_user, id_post) VALUES (`;
+  let voteCount = 0;
+
+  while (userCount < userAmount) {
+    console.log('Inserting users...');
+    const name = faker.name.firstName();
+    const email = faker.internet.email();
+    const password = faker.internet.password();
+    if (
+      insertUserQueryString.includes(name) ||
+      insertUserQueryString.includes(email)
+    ) {
+      continue;
+    }
+    insertUserQueryString += `'${name}', '${email}', '${password}'), (`;
+    userCount++;
+  }
+
+  insertUserQueryString = insertUserQueryString.slice(0, -3);
+
+  while (postCount < postAmount) {
+    console.log('Inserting posts...');
+    const title = faker.lorem.sentence(3);
+    const content = faker.lorem.paragraph(3);
+    const id_user = Math.floor(Math.random() * userAmount) + 1;
+    if (
+      insertPostQueryString.includes(title) ||
+      insertPostQueryString.includes(content)
+    ) {
+      continue;
+    }
+    insertPostQueryString += `'${title}', '${content}', '${id_user}'), (`;
+    postCount++;
+  }
+
+  insertPostQueryString = insertPostQueryString.slice(0, -3);
+
+  while (voteCount < voteAmount) {
+    console.log('Inserting votes...');
+    const likeValues = ['like', 'dislike'];
+    const value = likeValues[Math.floor(Math.random() * likeValues.length)];
+    const id_user = Math.floor(Math.random() * userAmount) + 1;
+    const id_post = Math.floor(Math.random() * postAmount) + 1;
+    if (insertVoteQueryString.includes(`'${id_user}', '${id_post}'`)) {
+      continue;
+    }
+    insertVoteQueryString += `'${value}', '${id_user}', '${id_post}'), (`;
+    voteCount++;
+  }
+
+  insertVoteQueryString = insertVoteQueryString.slice(0, -3);
+
+  return [insertUserQueryString, insertPostQueryString, insertVoteQueryString];
+};
+
 module.exports = {
   getPath,
   deleteAvatar,
@@ -128,4 +200,5 @@ module.exports = {
   generateError,
   createAnonymizedData,
   getAvatarQueryAndHandleFile,
+  createTestContentQueries,
 };

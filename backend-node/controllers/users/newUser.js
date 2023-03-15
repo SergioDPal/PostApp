@@ -5,14 +5,17 @@ const insertUserQuery = require('../../bbdd/queries/users/insertUserQuery');
 const { generateError } = require('../../helpers');
 
 /**
- * Extracts the name, email and password from the request body and inserts it into the database. Responds with a message.
+ * Saves the new user into the database.
+ *
  * @param {object} req - Request object.
  * @param {object} res - Response object.
  * @param {function} next - Next function.
+ *
  * @returns {void}
- * @example newUser({body: {name: 'Name', email: 'email', password: 'password'}}, res, next);
- * @returns {void}
+ *
  * @throws {Error} - If there is missing data.
+ *
+ * @example newUser({body: {name: 'Name', email: 'email', password: 'password'}}, res, next);
  */
 const newUser = async (req, res, next) => {
   try {

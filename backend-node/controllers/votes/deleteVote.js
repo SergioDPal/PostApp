@@ -3,14 +3,17 @@
 const deleteVoteQuery = require('../../bbdd/queries/votes/deleteVoteQuery');
 
 /**
- * Extracts the id of the post from the params and the user id from the body and deletes it from the database. Responds with a message.
+ * Deletes vote from the database.
+ *
  * @param {object} req - Request object.
  * @param {object} res - Response object.
  * @param {function} next - Next function.
+ *
  * @returns {void}
- * @example deleteVote({params: {id: 1} user: {id:1}}, res, next);
- * @returns {void}
+ *
  * @throws {Error} - If there is an error.
+ *
+ * @example deleteVote({params: {id: 1} user: {id:1}}, res, next);
  */
 const deleteVote = async (req, res, next) => {
   try {

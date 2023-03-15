@@ -4,7 +4,6 @@ require('dotenv').config();
 
 const getDB = require('./getConnection');
 
-// Function to create the database tables.
 async function createDatabase() {
   let connection;
 

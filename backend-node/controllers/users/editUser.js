@@ -3,32 +3,33 @@
 const updateUserQuery = require('../../bbdd/queries/users/updateUserQuery');
 
 /**
- * Extracts the data from the request body and updates the user in the database. Responds with a message. The user can update any number of fields.
+ * Updates the user in the database. The user can update any number of fields.
+ *
  * @param {object} req - Request object.
  * @param {object} res - Response object.
  * @param {function} next - Next function.
+ *
  * @returns {void}
- * @example editUser(req, res, next)
- * @returns {void}
- * @throws {Error} - If there is an error.
+ *
  * @throws {Error} - If there is no data.
+ *
+ * @example editUser({body: {name: 'String', email: 'String', password: 'String', avatar: object/string}, user: {id: 1}}, res, next);
  */
 const editUser = async (req, res, next) => {
-  const { name, email, password, avatar } = req.body;
-
+  const { name, email, password } = req.body;
+  const { id } = req.user;
+  const avatar = req.files ? req.files.avatar : req.body.avatar;
   const data = {};
 
-  const { id } = req.user;
+  Object.entries({ name, email, password, id, avatar }).forEach(
+    ([key, value]) => {
+      if (value) {
+        data[key] = value;
+      }
+    }
+  );
 
-  name && (data.name = name);
-  email && (data.email = email);
-  password && (data.password = password);
-  req.files
-    ? (data.avatar = req.files.avatar)
-    : avatar && (data.avatar = avatar);
-  id && (data.id = id);
-
-  if (!name && !email && !password && !data.avatar) {
+  if ([name, email, password, avatar].every((value) => !value)) {
     res.status(200).send({
       data: {
         errorcode: 412,

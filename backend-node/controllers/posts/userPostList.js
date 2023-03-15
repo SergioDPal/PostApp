@@ -3,17 +3,20 @@
 const selectUserPostQuery = require('../../bbdd/queries/posts/selectUserPostQuery');
 
 /**
- * Extracts the id from the request user and the offset from the request headers and sends a list of 10 posts from the user with that id.
+ * Sends a list of 10 posts from the offset posted by user with the given id.
+ *
  * @param {object} req - Request object.
  * @param {object} res - Response object.
  * @param {function} next - Next function.
+ *
  * @returns {void}
- * @example
- * userPostList({headers:{offset:0},user:{id:1}},res,next);
+ *
  * @throws {Error} - If there is an error.
+ *
+ * @example userPostList({headers:{offset:0},user:{id:1}},res,next);
  */
 const userPostList = async (req, res, next) => {
-  const id = req.user?.id;
+  const id = req.user.id;
   const offset = Number(req.headers.offset) ? Number(req.headers.offset) : 0;
 
   try {

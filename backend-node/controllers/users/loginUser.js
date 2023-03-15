@@ -7,15 +7,17 @@ const jwt = require('jsonwebtoken');
 const { generateError } = require('../../helpers');
 
 /**
- * Extracts the email and password from the request body and checks if the user exists and the password is correct. If so, it generates a token and responds with a message and the token.
+ * Generates a token and sends it along with the user data if the credentials are correct.
+ *
  * @param {object} req - Request object.
  * @param {object} res - Response object.
  * @param {function} next - Next function.
+ *
  * @returns {void}
+ *
+ * @throws {Error} - If the password is incorrect or there is missing data.
+ *
  * @example loginUser({body: {email: 'email', password: 'password'}}, res, next);
- * @returns {void}
- * @throws {Error} - If there is missing data.
- * @throws {Error} - If the password is incorrect.
  */
 const loginUser = async (req, res, next) => {
   try {

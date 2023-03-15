@@ -13,7 +13,7 @@ const {
  *
  * @param {string} value - Value of the vote.
  * @param {number} postId - Id of the post.
- * @param {number} token - Id of the user.
+ * @param {number} userId - Id of the user.
  *
  * @returns {object} - Object with the value of the vote.
  *
@@ -21,7 +21,7 @@ const {
  *
  * @throws {Error} - If the vote already exists.
  */
-const insertVoteQuery = async (value, postId, token) => {
+const insertVoteQuery = async (value, postId, userId) => {
   let connection;
 
   try {
@@ -29,16 +29,16 @@ const insertVoteQuery = async (value, postId, token) => {
 
     const [previousVote] = await connection.query(selectVoteQuery, [
       postId,
-      token,
+      userId,
     ]);
 
     if (previousVote.length < 1) {
-      await connection.query(insertQuery, [value, postId, token]);
+      await connection.query(insertQuery, [value, postId, userId]);
     } else {
       if (previousVote[0].value === value) {
         generateError('This vote already exists.', 400);
       } else {
-        await connection.query(updateVoteQuery, [value, postId, token]);
+        await connection.query(updateVoteQuery, [value, postId, userId]);
       }
     }
 

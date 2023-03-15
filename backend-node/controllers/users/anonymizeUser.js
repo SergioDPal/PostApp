@@ -3,14 +3,17 @@
 const anonymizeUserQuery = require('../../bbdd/queries/users/anonymizeUserQuery');
 
 /**
- * Anonymizes a user in the database by changing its name, email and password. Responds with a message.
+ * Anonymizes a user in the database by changing its name, email and password.
+ *
  * @param {object} req - Request object.
  * @param {object} res - Response object.
  * @param {function} next - Next function.
+ *
  * @returns {void}
- * @example anonymizeUser(req, res, next)
- * @returns {void}
+ *
  * @throws {Error} - If there is an error.
+ *
+ * @example anonymizeUser(req, res, next)
  */
 const anonymizeUser = async (req, res, next) => {
   try {

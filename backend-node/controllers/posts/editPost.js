@@ -5,13 +5,16 @@ const { generateError } = require('../../helpers');
 
 /**
  * Updates the post data in the database and sends the updated data. The user can update the title, the content or both.
+ *
  * @param {object} req - Request object.
  * @param {object} res - Response object.
  * @param {function} next - Next function.
+ *
  * @returns {void}
- * @example editPost({body: {title: 'New title', content: 'New content'}, params: {id: 1}, user: {id: 1}}, res, next);
- * @throws {Error} - If there is an error.
+ *
  * @throws {Error} - If there are empty fields.
+ *
+ * @example editPost({body: {title: 'New title', content: 'New content'}, params: {id: 1}, user: {id: 1}}, res, next);
  */
 const editPost = async (req, res, next) => {
   const { title, content } = req.body;
@@ -23,8 +26,7 @@ const editPost = async (req, res, next) => {
 
     const updatedData = await updatePostQuery(
       { title, content },
-      req.params.id,
-      req.user.id
+      req.params.id
     );
 
     res.send({
