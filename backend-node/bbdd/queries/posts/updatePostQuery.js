@@ -4,35 +4,35 @@ const getDB = require('../../getConnection');
 const { generateError } = require('../../../helpers');
 
 /**
- * Updates the post data in the database.
+ * Updates the post data in the database. The user can update any number of fields. Returns the updated data.
+ *
  * @param {object} dataToUpdate - Data to update.
  * @param {number} postID - Id of the post.
  * @param {number} user - Id of the user.
+ *
  * @returns {object} - Updated data.
+ *
  * @example updatePostQuery({title: 'New title', content: 'New content'}, 1, 1);
- * @throws {Error} - If there is an error.
- * @throws {Error} - If there all fields are empty.
+ *
+ * @throws {Error} - If there is an error or if all fields are empty.
  */
-const updatePostQuery = async (dataToUpdate, postID, user) => {
+const updatePostQuery = async (dataToUpdate, postID) => {
   let connection;
 
   try {
     connection = await getDB();
 
-    const { title, content } = dataToUpdate;
-
-    const bodyNames = Object.keys(dataToUpdate).sort();
     let queryString = 'modifiedAt=?';
     let queryArray = [new Date()];
-    for (const entry of bodyNames) {
-      if (entry === 'title' || entry === 'content') {
-        queryString += `, ${entry}=?`;
-      }
-      if (entry === 'title') queryArray.push(title);
-      if (entry === 'content') queryArray.push(content);
-    }
-    queryString += `, id_user = ?`;
-    queryArray.push(user, postID);
+
+    Object.entries(dataToUpdate)
+      .sort()
+      .forEach(([key, value]) => {
+        queryString += `, ${key}=?`;
+        queryArray.push(value);
+      });
+
+    queryArray.push(postID);
 
     await connection.query(
       `

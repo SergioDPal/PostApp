@@ -20,6 +20,7 @@ const SinglePost = () => {
   const [isEditingPost, setIsEditingPost] = useState(false);
   const { id } = useParams();
 
+  console.log(currentPost);
   useRequestHandler(() =>
     loadPosts(currentPost, setCurrentPost, token, 'user', id)
   );
@@ -46,7 +47,7 @@ const SinglePost = () => {
           <header className="postheader">
             <h2 className="posttitle">{currentPost.title}</h2>
             <NavLink to={`/user/${currentPost.id_user}`}>
-              <p className="postauthor">@{currentPost.name}</p>
+              <p className="postauthor">@{currentPost.user_name}</p>
             </NavLink>
             {loggedUser?.id === currentPost.id_user && (
               <section className="buttons">
@@ -93,7 +94,7 @@ const SinglePost = () => {
                 maxLength="60"
                 required
               ></TextareaAutosize>
-              <p className="postauthor">@{currentPost.name}</p>
+              <p className="postauthor">@{currentPost.user_name}</p>
               <section className="buttons">
                 <>
                   <button

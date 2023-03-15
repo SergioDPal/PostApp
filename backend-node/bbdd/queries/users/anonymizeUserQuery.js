@@ -1,14 +1,20 @@
 'use strict';
-const generateError = require('../../../helpers');
+const { generateError, createAnonymizedData } = require('../../../helpers');
 
 const getDB = require('../../getConnection');
 
+const { anonymizeUserQuery: anonymizeQuery } = require('../allQueries');
+
 /**
  * Anonymizes a user in the database by changing its name, email and password.
+ *
  * @param {number} userId - Id of the user.
+ *
  * @returns {void}
- * @example anonymizeUserQuery(userId)
+ *
  * @throws {Error} - If there is an error.
+ *
+ * @example anonymizeUserQuery(userId)
  */
 const anonymizeUserQuery = async (userId) => {
   let connection;
@@ -16,20 +22,7 @@ const anonymizeUserQuery = async (userId) => {
   try {
     connection = await getDB();
 
-    await connection.query(
-      `
-            UPDATE users
-            SET status = 'deleted',name = ?, password = ?, email = ?, modifiedAt = ?
-            WHERE id = ?
-            `,
-      [
-        `DeletedUser${userId}`,
-        `${Math.random()}`,
-        `${userId}@deleted.com`,
-        new Date(),
-        userId,
-      ]
-    );
+    await connection.query(anonymizeQuery, createAnonymizedData(userId));
   } catch (error) {
     generateError('Unexpected error during the request.', 500);
   } finally {

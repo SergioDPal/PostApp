@@ -2,44 +2,38 @@
 
 const getDB = require('../../getConnection');
 const { generateError } = require('../../../helpers');
+const { userPostQuery } = require('../allQueries');
 
 /**
- * Selects a user's array of posts by its id.
+ * Returns a user's array of 10 posts starting from the offset.
+ *
  * @param {number} id - Id of the user.
  * @param {number} offset - Offset of the posts.
+ *
  * @returns {object} - Object with the user's posts data.
- * @example selectUserPostQuery(2,20)
+ *
  * @throws {Error} - If the user or the post is not found.
+ *
+ * @example selectUserPostQuery(2,20)
  */
 const selectUserPostQuery = async (id, offset) => {
   let connection;
 
   try {
     connection = await getDB();
-    const [posts] = await connection.query(
-      `SELECT p.id, p.createdAt, p.title, p.content, u.name, u.status, p.id_user,
-			(SELECT COUNT(*) FROM votes WHERE value = 'like' AND id_post = p.id) 
-            - (SELECT COUNT(*) FROM votes WHERE value = 'dislike' AND id_post = p.id) AS likes,
-            (SELECT value FROM votes WHERE id_post = p.id AND id_user = ?) AS like_by_user
-            FROM posts AS p
-            LEFT JOIN users AS u ON (u.id = p.id_user)
-            LEFT JOIN votes AS v ON (v.id_post = p.id)
-            WHERE p.id_user = ?
-            GROUP BY p.id
-            ORDER BY p.id DESC LIMIT 10 OFFSET ?`,
-      [id, id, offset]
-    );
+    const [posts] = await connection.query(userPostQuery, [id, id, offset]);
     if (posts.length < 1) {
-      generateError('Post no encontrado', 404);
+      generateError('Post not found', 404);
     }
-    const checkedPosts = posts.map((post) => {
-      if (post.status === 'deleted') {
-        post.name = 'Deleted user';
+
+    posts.forEach((post) => {
+      if (post.user_status === 'deleted') {
+        post.user_name = 'Deleted user';
       }
-      delete post.status;
-      return post;
+      delete post.user_status;
     });
-    return checkedPosts;
+
+    return posts;
   } finally {
     if (connection) connection.release();
   }

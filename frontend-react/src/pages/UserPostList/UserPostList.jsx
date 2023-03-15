@@ -54,7 +54,7 @@ const UserPostList = () => {
                     className="postauthor"
                     to={`/user/${post.id_user}`}
                   >
-                    <p>@{post.name}</p>
+                    <p>@{post.user_name}</p>
                   </NavLink>
                 </header>
                 <p className="postcontent">

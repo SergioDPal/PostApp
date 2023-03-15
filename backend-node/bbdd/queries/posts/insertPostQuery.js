@@ -4,12 +4,16 @@ const getDB = require('../../getConnection');
 
 /**
  * Inserts the post data in the database.
+ *
  * @param {string} title - Title of the post.
  * @param {string} content - Content of the post.
  * @param {number} token - Id of the user.
+ *
  * @returns {number} - Id of the post.
- * @example insertPostQuery('Title', 'Content', 1);
+ *
  * @throws {Error} - If there is a duplicate title.
+ *
+ * @example insertPostQuery('Title', 'Content', 1);
  */
 const insertPostQuery = async (title, content, token) => {
   let connection;
@@ -17,15 +21,16 @@ const insertPostQuery = async (title, content, token) => {
   try {
     connection = await getDB();
 
-    const res = await connection.query(
+    const [post] = await connection.query(
       `
-                INSERT INTO posts (title, content, id_user)
-                VALUES (?, ?, ?)
-            `,
+      INSERT INTO posts (title, content, id_user) 
+      VALUES 
+        (?, ?, ?)
+      `,
       [title, content, token]
     );
 
-    return res[0].insertId;
+    return post.insertId;
   } catch (err) {
     if (err.errno === 1062)
       return {

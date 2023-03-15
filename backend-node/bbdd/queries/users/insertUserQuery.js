@@ -1,16 +1,21 @@
 'use strict';
 
 const getDB = require('../../getConnection');
+const { insertUserQuery: userQuery } = require('../allQueries');
 const bcrypt = require('bcrypt');
-
+const saltRounds = 10;
 /**
- * Inserts a user in the database.
+ * Creates a user in the database.
+ *
  * @param {string} name - Name of the user.
  * @param {string} email - Email of the user.
  * @param {string} password - Password of the user.
+ *
  * @returns {void}
- * @example insertUserQuery(name, email, password)
+ *
  * @throws {Error} - If there is an error.
+ *
+ * @example insertUserQuery(name, email, password)
  */
 const insertUserQuery = async (name, email, password) => {
   let connection;
@@ -18,12 +23,9 @@ const insertUserQuery = async (name, email, password) => {
   try {
     connection = await getDB();
 
-    const hashedPass = await bcrypt.hash(password, 10);
+    const hashedPass = await bcrypt.hash(password, saltRounds);
 
-    await connection.query(
-      `INSERT INTO users (name, email, password) VALUES (?, ?, ?)`,
-      [name, email, hashedPass]
-    );
+    await connection.query(userQuery, [name, email, hashedPass]);
   } finally {
     if (connection) connection.release();
   }

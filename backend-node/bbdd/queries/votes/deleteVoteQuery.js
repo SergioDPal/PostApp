@@ -1,14 +1,18 @@
 'use strict';
 
 const getDB = require('../../getConnection');
-
+const { deleteVoteQuery: query } = require('../allQueries');
 /**
- * Deletes the vote data in the database.
+ * Deletes the vote in the database.
+ *
  * @param {number} postId - Id of the post.
  * @param {number} tokenId - Id of the user.
+ *
  * @returns {void}
- * @example deleteVoteQuery(1, 1);
+ *
  * @throws {Error} - If there is an error.
+ *
+ * @example deleteVoteQuery(1, 1);
  */
 const deleteVoteQuery = async (postId, tokenId) => {
   let connection;
@@ -16,14 +20,7 @@ const deleteVoteQuery = async (postId, tokenId) => {
   try {
     connection = await getDB();
 
-    await connection.query(
-      `
-            DELETE  
-            FROM votes
-            WHERE id_post=? AND id_user=?
-            `,
-      [postId, tokenId]
-    );
+    await connection.query(query, [postId, tokenId]);
   } finally {
     if (connection) connection.release();
   }
