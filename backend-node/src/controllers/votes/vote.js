@@ -19,7 +19,7 @@ const insertVoteQuery = require('../../bbdd/queries/votes/insertVoteQuery');
  */
 const vote = async (req, res, next) => {
   try {
-    const { postId } = req.params;
+    const { id: postId } = req.params;
     const { value } = req.body;
 
     const vote = await insertVoteQuery(value, postId, req.user.id);

@@ -2,7 +2,8 @@
 
 const mysql = require('mysql2/promise');
 
-const { MYSQL_HOST, MYSQL_USER, MYSQL_PASS, MYSQL_BBDD } = process.env;
+const { MYSQL_HOST, MYSQL_USER, MYSQL_PASS, MYSQL_BBDD, MYSQL_PORT } =
+  process.env;
 
 let pool;
 
@@ -22,7 +23,11 @@ const getDB = async () => {
         user: MYSQL_USER,
         password: MYSQL_PASS,
         database: MYSQL_BBDD,
-        timezone: 'Z',
+        port: MYSQL_PORT,
+        ssl: {
+          minVersion: 'TLSv1.2',
+          rejectUnauthorized: true,
+        },
       });
     }
 

@@ -60,6 +60,7 @@
   position: fixed;
   z-index: 1;
   bottom: 30px;
+  box-shadow: var(--shadow);
   font-weight: bold;
 }
 
@@ -81,5 +82,6 @@
   position: fixed;
   z-index: 1;
   bottom: 30px;
+  box-shadow: var(--shadow);
   font-weight: bold;
 }

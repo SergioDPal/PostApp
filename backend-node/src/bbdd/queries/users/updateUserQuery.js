@@ -1,8 +1,8 @@
-'use strict';
+"use strict";
 
-const getDB = require('../../getConnection');
-const bcrypt = require('bcrypt');
-const { getAvatarQueryAndHandleFile } = require('../../../helpers');
+const getDB = require("../../getConnection");
+const bcrypt = require("bcrypt");
+const {getAvatarQueryAndHandleFile} = require("../../../helpers");
 
 /**
  * Edits the user data in the database.
@@ -20,18 +20,18 @@ const updateUserQuery = async (data) => {
 
   try {
     connection = await getDB();
-    const { id } = data;
+    const {id} = data;
     let hashedPass;
-    let queryString = 'modifiedAt=?';
+    let queryString = "modifiedAt=?";
     let queryArray = [new Date()];
 
     Object.entries(data).forEach(([key, value]) => {
-      if (key === 'password') {
+      if (key === "password") {
         hashedPass = bcrypt.hashSync(value, 10);
         queryString += `, password='${hashedPass}'`;
-      } else if (key === 'avatar') {
+      } else if (key === "avatar") {
         queryString += getAvatarQueryAndHandleFile(value, id);
-      } else if (key !== 'avatar' && key !== 'id' && key !== 'password') {
+      } else if (key !== "avatar" && key !== "id" && key !== "password") {
         queryString += `, ${key}=?`;
         queryArray.push(value);
       }
@@ -41,10 +41,10 @@ const updateUserQuery = async (data) => {
 
     await connection.query(
       `
-            UPDATE users
-            SET ${queryString}
-            WHERE id=?
-            `,
+        UPDATE users
+        SET ${queryString}
+        WHERE id=?
+        `,
       queryArray
     );
   } finally {

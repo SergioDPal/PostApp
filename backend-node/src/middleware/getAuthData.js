@@ -1,7 +1,8 @@
-'use strict';
+"use strict";
 
-const jwt = require('jsonwebtoken');
-const { generateError } = require('../helpers');
+const jwt = require("jsonwebtoken");
+const {generateError} = require("../helpers");
+const {logger} = require("firebase-functions/v1");
 
 /**
  * Gets the token id from the request and adds it to the request object.
@@ -45,11 +46,11 @@ const parseToken = (token, enforceToken) => {
     if (token) {
       return jwt.verify(token, process.env.SECRET);
     } else if (enforceToken) {
-      generateError('You need to be logged in.', 403);
+      generateError("You need to be logged in.", 403);
     }
   } catch {
     return null;
   }
 };
 
-module.exports = { getTokenIdOptional, ensureToken };
+module.exports = {getTokenIdOptional, ensureToken};

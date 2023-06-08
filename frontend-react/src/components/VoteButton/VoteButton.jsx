@@ -43,7 +43,7 @@ const VoteButton = ({ postId, voteValue, icon, onVote }) => {
         token
           ? updateVote()
           : () => {
-              setFadingMessage('Inicia sesión para votar', true);
+              setFadingMessage('Please log in to vote.', true);
             }
       }
     />

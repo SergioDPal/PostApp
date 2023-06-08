@@ -1,6 +1,7 @@
-'use strict';
+"use strict";
 
-const updateUserQuery = require('../../bbdd/queries/users/updateUserQuery');
+const {logger} = require("firebase-functions/v1");
+const updateUserQuery = require("../../bbdd/queries/users/updateUserQuery");
 
 /**
  * Updates the user in the database. The user can update any number of fields.
@@ -16,12 +17,11 @@ const updateUserQuery = require('../../bbdd/queries/users/updateUserQuery');
  * @example editUser({body: {name: 'String', email: 'String', password: 'String', avatar: object/string}, user: {id: 1}}, res, next);
  */
 const editUser = async (req, res, next) => {
-  const { name, email, password } = req.body;
-  const { id } = req.user;
-  const avatar = req.files ? req.files.avatar : req.body.avatar;
+  const {name, email, password} = req.body;
+  const avatar = Object.values(req.body.uploads)[0] ?? req.body.avatar;
+  const {id} = req.user;
   const data = {};
-
-  Object.entries({ name, email, password, id, avatar }).forEach(
+  Object.entries({name, email, password, id, avatar}).forEach(
     ([key, value]) => {
       if (value) {
         data[key] = value;
@@ -30,10 +30,10 @@ const editUser = async (req, res, next) => {
   );
 
   if ([name, email, password, avatar].every((value) => !value)) {
-    res.status(200).send({
+    res.status(400).send({
       data: {
         errorcode: 412,
-        message: 'No data to update.',
+        message: "No data to update.",
       },
     });
   }
@@ -42,9 +42,9 @@ const editUser = async (req, res, next) => {
     await updateUserQuery(data);
 
     res.send({
-      status: 'ok',
+      status: "ok",
       data: {
-        message: 'User updated.',
+        message: "User updated.",
       },
     });
   } catch (err) {

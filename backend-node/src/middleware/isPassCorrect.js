@@ -1,8 +1,9 @@
-'use strict';
+"use strict";
 
-const getDB = require('../bbdd/getConnection');
-const bcrypt = require('bcrypt');
-const { generateError } = require('../helpers');
+const getDB = require("../bbdd/getConnection");
+const bcrypt = require("bcrypt");
+const {generateError} = require("../helpers");
+const {log} = require("console");
 
 /**
  * Checks if the password is correct.
@@ -27,12 +28,13 @@ const isPassCorrect = async (req, res, next) => {
 
     const dbPassword = user[0].password;
 
-    const passFromReq = req.body.oldPwd;
+    const {oldPwd} = req.body;
+    Object.entries(req.body).forEach(([key, value]) => {});
 
-    const validPass = await bcrypt.compare(passFromReq, dbPassword);
+    const validPass = await bcrypt.compare(oldPwd, dbPassword);
 
     if (!validPass) {
-      generateError('Incorrect password.', 401);
+      generateError("Incorrect password.", 401);
     }
 
     next();
