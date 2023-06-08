@@ -1,4 +1,4 @@
-import { throwError } from '../helpers';
+import {throwError} from "../helpers";
 
 /**
  * Loads the posts data from the database into the state. If the id is provided, it loads the post with that id. If not, it loads the posts with the url provided.
@@ -11,12 +11,12 @@ import { throwError } from '../helpers';
  * @example loadPosts(listState, setListState, 'token', 'url');
  * @throws {Error} - If there is an error connecting to the database or if the post is not found.
  */
-const loadPosts = async (listState, setListState, token, url = '', id) => {
+const loadPosts = async (listState, setListState, token, url = "", id) => {
   let resPosts;
   const requestOptions = {
-    method: 'GET',
+    method: "GET",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: token,
       offset: id ? 0 : listState.length,
     },
@@ -59,4 +59,4 @@ const loadPosts = async (listState, setListState, token, url = '', id) => {
   }
 };
 
-export { loadPosts };
+export {loadPosts};

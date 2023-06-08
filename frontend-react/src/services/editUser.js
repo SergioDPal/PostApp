@@ -1,4 +1,4 @@
-import { throwError } from '../helpers';
+import {throwError} from "../helpers";
 
 /**
  * Edits the user profile in the database.
@@ -9,14 +9,16 @@ import { throwError } from '../helpers';
  */
 const editUser = async (formData, token) => {
   const requestOptions = {
-    method: 'PUT',
-    headers: { Authorization: token },
+    method: "PUT",
+    headers: {Application: "multipart/form-data", Authorization: token},
     body: formData,
   };
+
   const resLogin = await fetch(
     `${process.env.REACT_APP_HOST}/user/edit`,
     requestOptions
   );
+
   const resBody = await resLogin.json();
 
   if (resLogin.ok) {
@@ -26,4 +28,4 @@ const editUser = async (formData, token) => {
   }
 };
 
-export { editUser };
+export {editUser};

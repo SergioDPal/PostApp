@@ -1,41 +1,43 @@
-import { useContext, useState } from 'react';
-import { useParams } from 'react-router';
-import { loadPosts, updatePost } from '../../services';
-import { DeletePostButton } from '../../components/DeletePostButton/DeletePostButton';
-import { NavLink } from 'react-router-dom';
-import TextareaAutosize from 'react-textarea-autosize';
-import { Loading } from '../../components/Loading/Loading';
-import { VotePanel } from '../../components/VotePanel/VotePanel';
-import { LoginDataContext } from '../../context/LoginDataProvider';
-import { FadingMessageContext } from '../../context/FadingBannerProvider';
-import { useRequestHandler } from '../../hooks/useRequestHandler';
-import './SinglePost.css';
+import {useContext, useState} from "react";
+import {useParams} from "react-router";
+import {loadPosts, updatePost} from "../../services";
+import {DeletePostButton} from "../../components/DeletePostButton/DeletePostButton";
+import {NavLink} from "react-router-dom";
+import TextareaAutosize from "react-textarea-autosize";
+import {Loading} from "../../components/Loading/Loading";
+import {VotePanel} from "../../components/VotePanel/VotePanel";
+import {LoginDataContext} from "../../context/LoginDataProvider";
+import {FadingMessageContext} from "../../context/FadingBannerProvider";
+import {useRequestHandler} from "../../hooks/useRequestHandler";
+import "./SinglePost.css";
 
 const SinglePost = () => {
-  const { setFadingMessage } = useContext(FadingMessageContext);
-  const { token, loggedUser } = useContext(LoginDataContext);
+  const {setFadingMessage} = useContext(FadingMessageContext);
+  const {token, loggedUser} = useContext(LoginDataContext);
   const [currentPost, setCurrentPost] = useState();
   const [titleText, setTitleText] = useState();
   const [contentText, setContentText] = useState();
   const [isEditingPost, setIsEditingPost] = useState(false);
-  const { id } = useParams();
+  const {id} = useParams();
 
-  console.log(currentPost);
   useRequestHandler(() =>
-    loadPosts(currentPost, setCurrentPost, token, 'user', id)
+    loadPosts(currentPost, setCurrentPost, token, "user", id)
   );
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const res = await updatePost(token, titleText, contentText, id);
-      if (res.status === 'ok') {
-        setCurrentPost({ ...currentPost, ...res.data });
-        setFadingMessage('Post actualizado');
+      if (res.status === "ok") {
+        setCurrentPost({...currentPost, ...res.data});
+        setFadingMessage("Post updated.");
       }
     } catch (err) {
-      err.message === 'Failed to fetch'
-        ? setFadingMessage('Ha habido un error de conexión.', true)
+      err.message === "Failed to fetch"
+        ? setFadingMessage(
+            "There has been a connection error. Please try again.",
+            true
+          )
         : setFadingMessage(err.message, true);
     }
   };
@@ -143,4 +145,4 @@ const SinglePost = () => {
   );
 };
 
-export { SinglePost };
+export {SinglePost};

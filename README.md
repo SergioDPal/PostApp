@@ -1,33 +1,18 @@
+<a href="https://sdiazpostapp.vercel.app/" target="_blank" rel="noreferrer noopener"><button name="button"  style="background-color: #4CAF50; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;">Live demo</button></a>
+
 # PostApp
 
-PostApp is a project made to learn how to use both React and Nodejs.
+PostApp is a project made to learn how to use both React and NodeJS. It's a simple app where you can create, edit and delete posts, react to published posts, view other user's profiles, edit your own and add an avatar.
 
-## Usage
+## Technologies
 
-- Download the project, use `npm -i` in both folders backend and frontend.
-- Create a database.
-- Make a copy of both `.env` located at the root of both folders and fill them.
+- React
+- NodeJS
+- Express
+- MySQL
+- Firebase
+- JWT
 
-# backend-node/.env
+## Deployment
 
-```
-PORT= Where your backend will be listening.
-MYSQL_HOST= Localhost adress.
-MYSQL_USER=
-MYSQL_PASS=
-MYSQL_BBDD= Database you just created and we will be using.
-SECRET= Any sequence of characters to hash passwords.
-```
-
-# frontend-react/.env
-
-```
-# where your server is listening
-REACT_APP_HOST=http://address
-```
-
-# Starting the app
-
-Now we want to launch `InitDB.js` to create the DB Tables, and if you want something to look at, use `attTestContent.js` to generate random data. Both files located at `backend-node\bbdd\initDB.js`.
-
-All we have left to do is run the server typing `npm start` in your terminal at both root folders.
+This project is deployed on Vercel and Firebase. You can check it out [here](https://sdiazpostapp.vercel.app/).

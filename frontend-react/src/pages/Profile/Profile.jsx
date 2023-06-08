@@ -1,19 +1,19 @@
-import { useContext, useState } from 'react';
-import { useParams } from 'react-router';
-import { NavLink } from 'react-router-dom';
-import { getUserProfile } from '../../services';
-import { Loading } from '../../components/Loading/Loading';
-import { LoginDataContext } from '../../context/LoginDataProvider';
-import { useRequestHandler } from '../../hooks/useRequestHandler';
-import './Profile.css';
-import { BigButton } from '../../components/BigButton/BigButton';
+import {useContext, useState} from "react";
+import {useParams} from "react-router";
+import {NavLink} from "react-router-dom";
+import {getUserProfile} from "../../services";
+import {Loading} from "../../components/Loading/Loading";
+import {LoginDataContext} from "../../context/LoginDataProvider";
+import {useRequestHandler} from "../../hooks/useRequestHandler";
+import "./Profile.css";
+import {BigButton} from "../../components/BigButton/BigButton";
 
 const Profile = () => {
-  const { token } = useContext(LoginDataContext);
-  const { id } = useParams();
+  const {token} = useContext(LoginDataContext);
+  const {id} = useParams();
   const [profileData, setProfileData] = useState();
 
-  useRequestHandler(() => getUserProfile(token, id, setProfileData));
+  useRequestHandler(() => getUserProfile(token, id, setProfileData), id);
 
   return profileData === undefined ? (
     <Loading />
@@ -23,14 +23,14 @@ const Profile = () => {
         <img
           src={
             profileData.avatar === 1
-              ? `${process.env.REACT_APP_HOST}/${id}`
-              : '/icons/default_profile.svg'
+              ? `${process.env.REACT_APP_HOST}/avatar/${id}`
+              : "/icons/default_profile.svg"
           }
           alt="Avatar"
           className="avatar"
         />
         <h2>{`${profileData.name}`}</h2>
-        <ul className={profileData.email ? 'userdata' : 'userdatashort'}>
+        <ul className={profileData.email ? "userdata" : "userdatashort"}>
           {profileData.email ? <li className="emailkey">Email </li> : null}
           <li className="datekey">User since</li>
           <li className="postskey"> Post count</li>
@@ -56,4 +56,4 @@ const Profile = () => {
   );
 };
 
-export { Profile };
+export {Profile};

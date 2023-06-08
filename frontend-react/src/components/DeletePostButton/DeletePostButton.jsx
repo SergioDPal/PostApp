@@ -10,15 +10,15 @@ const DeletePostButton = ({ postId, token, setFadingMessage }) => {
       src="/icons/trash.svg"
       alt="trash"
       onClick={async () => {
-        if (window.confirm('¿Estás seguro de querer borrar este post?')) {
+        if (window.confirm('¿Are you sure you want to delete this post?')) {
           try {
             const res = await deletePost(postId, token);
             if (res.ok) {
-              setFadingMessage('Post borrado');
+              setFadingMessage('Post deleted.');
               nav('/user/posts');
             }
           } catch (error) {
-            setFadingMessage('Error al borrar el post', true);
+            setFadingMessage('Error deleting the post.', true);
           }
         }
       }}

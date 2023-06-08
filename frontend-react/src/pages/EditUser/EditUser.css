@@ -9,6 +9,7 @@ section.edituserformwrapper {
 }
 
 section.edituserformwrapper > form.edituserform {
+  padding-top: 1rem;
   width: 100%;
   height: 100%;
   border: 2px solid var(--light-orange);
@@ -21,6 +22,14 @@ section.edituserformwrapper > form.edituserform {
   place-self: center;
   box-shadow: 4px 4px 10px var(--dark-shadow);
   margin-bottom: 3rem;
+}
+
+section.edituserformwrapper > form.edituserform > img#imagepreview {
+  border: 2px solid var(--light-orange);
+  width: 209px;
+  height: 209px;
+  border-radius: 110px;
+  object-fit: cover;
 }
 
 section.edituserformwrapper > form.edituserform > input {
@@ -99,7 +108,7 @@ span.checkmark {
 }
 
 .checkmark:after {
-  content: '';
+  content: "";
   margin: 3px 0 0 7px;
   display: none;
 }
@@ -143,7 +152,7 @@ label.avatarfile {
   font-weight: bold;
   cursor: pointer;
   box-shadow: var(--shadow);
-  font-family: 'M PLUS Rounded 1c';
+  font-family: "M PLUS Rounded 1c";
 }
 
 label.disabledavatarfile {
@@ -159,7 +168,7 @@ label.disabledavatarfile {
   color: grey;
   font-weight: bold;
   box-shadow: none;
-  font-family: 'M PLUS Rounded 1c';
+  font-family: "M PLUS Rounded 1c";
 }
 
 label.deleteavatar {
@@ -184,7 +193,7 @@ button.deleteavatar {
   font-weight: bold;
   cursor: pointer;
   box-shadow: var(--shadow);
-  font-family: 'M PLUS Rounded 1c';
+  font-family: "M PLUS Rounded 1c";
 }
 
 label.avatarfile:hover {
@@ -228,7 +237,7 @@ img#imagen {
     font-weight: bold;
     cursor: pointer;
     box-shadow: var(--shadow);
-    font-family: 'M PLUS Rounded 1c';
+    font-family: "M PLUS Rounded 1c";
   }
   label.avatarfile {
     font-size: 0.95rem;

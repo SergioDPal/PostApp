@@ -1,19 +1,36 @@
-import { useContext, useState } from 'react';
-import { Navigate } from 'react-router-dom';
-import { FadingMessageContext } from '../../context/FadingBannerProvider';
-import { LoginDataContext } from '../../context/LoginDataProvider';
-import { editUser } from '../../services';
-import { DeleteUser } from '../../components/DeleteUser/DeleteUser';
-import { BigButton } from '../../components/BigButton/BigButton';
-import './EditUser.css';
+import {useContext, useState} from "react";
+import {Navigate} from "react-router-dom";
+import {FadingMessageContext} from "../../context/FadingBannerProvider";
+import {LoginDataContext} from "../../context/LoginDataProvider";
+import {editUser} from "../../services";
+import {DeleteUser} from "../../components/DeleteUser/DeleteUser";
+import {BigButton} from "../../components/BigButton/BigButton";
+import "./EditUser.css";
+
+const updateLoggedUser = (
+  setLoggedUser,
+  loggedUser,
+  email,
+  userName,
+  avatar,
+  deleteAvatar
+) => {
+  let changedValues = {};
+  if (email !== "") changedValues = {...changedValues, email};
+  if (userName !== "") changedValues = {...changedValues, name: userName};
+  if (avatar) changedValues = {...changedValues, avatar: 1};
+  if (deleteAvatar) changedValues = {...changedValues, avatar: 0};
+
+  setLoggedUser({...loggedUser, ...changedValues});
+};
 
 const EditUser = () => {
-  const { setFadingMessage } = useContext(FadingMessageContext);
-  const { token, setLoggedUser, loggedUser } = useContext(LoginDataContext);
-  const [userName, setUserName] = useState('');
-  const [email, setEmail] = useState('');
-  const [oldPassword, setOldPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
+  const {setFadingMessage} = useContext(FadingMessageContext);
+  const {token, setLoggedUser, loggedUser} = useContext(LoginDataContext);
+  const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState("");
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
   const [deleteAvatar, setDeleteAvatar] = useState(false);
   const [avatar, setAvatar] = useState();
 
@@ -24,45 +41,46 @@ const EditUser = () => {
       !oldPassword
     ) {
       setFadingMessage(
-        'You need to fill at least one field and your current password.',
+        "You need to fill at least one field and your current password.",
         true
       );
     } else {
       try {
         const formData = new FormData();
-        if (userName) formData.append('name', userName);
-        if (email) formData.append('email', email);
-        if (newPassword) formData.append('password', newPassword);
-        if (deleteAvatar) formData.append('avatar', 'delete');
-        if (avatar && !deleteAvatar) formData.append('avatar', avatar);
-        formData.append('oldPwd', oldPassword);
+
+        userName && formData.append("name", userName);
+        email && formData.append("email", email);
+        deleteAvatar && formData.append("avatar", "delete");
+        avatar && !deleteAvatar && formData.append("avatar", avatar);
+        newPassword && formData.append("password", newPassword);
+        formData.append("oldPwd", oldPassword);
 
         const editRes = await editUser(formData, token);
 
-        if (editRes.status === 'ok') {
-          let changedValues = {};
-          if (email !== '') changedValues = { ...changedValues, email };
-          if (userName !== '')
-            changedValues = { ...changedValues, name: userName };
-
-          if (avatar) changedValues = { ...changedValues, avatar: 1 };
-
-          if (deleteAvatar) changedValues = { ...changedValues, avatar: 0 };
-
-          setLoggedUser({ ...loggedUser, ...changedValues });
-          setFadingMessage('User updated successfully!');
+        if (editRes.status === "ok") {
+          updateLoggedUser(
+            setLoggedUser,
+            loggedUser,
+            email,
+            userName,
+            avatar,
+            deleteAvatar,
+            setFadingMessage
+          );
+          setFadingMessage("User updated successfully!");
         }
       } catch (err) {
-        setFadingMessage('Something happened, please try again.', true);
+        setFadingMessage("Something happened, please try again.", true);
       }
       setDeleteAvatar(false);
-      setUserName('');
-      setEmail('');
-      setOldPassword('');
-      setNewPassword('');
+      setUserName("");
+      setEmail("");
+      setOldPassword("");
+      setNewPassword("");
     }
-    document.getElementById('deleteavatar').checked = false;
-    document.getElementById('avatar').value = null;
+    if (loggedUser.avatar === 1)
+      document.getElementById("deleteavatar").checked = false;
+    document.getElementById("avatar").value = null;
   };
 
   return !token ? (
@@ -75,11 +93,11 @@ const EditUser = () => {
           onSubmit={handleSubmit}
         >
           <img
-            id="imagen"
+            id="imagepreview"
             src={
               loggedUser.avatar === 1 && !deleteAvatar
-                ? `${process.env.REACT_APP_HOST}/${loggedUser.id}`
-                : '/icons/default_profile.svg'
+                ? `${process.env.REACT_APP_HOST}/avatar/${loggedUser.id}`
+                : "/icons/default_profile.svg"
             }
             alt="preview"
           />
@@ -101,7 +119,7 @@ const EditUser = () => {
                       onClick={(e) => {
                         setDeleteAvatar(!deleteAvatar);
                         const checkbox =
-                          document.getElementById('deleteavatar');
+                          document.getElementById("deleteavatar");
                         checkbox.checked = !checkbox.checked;
                       }}
                     ></span>
@@ -116,7 +134,7 @@ const EditUser = () => {
               )}
               <input
                 className="inputfile"
-                disabled={deleteAvatar ? 'disabled' : ''}
+                disabled={deleteAvatar ? "disabled" : false}
                 type="file"
                 id="avatar"
                 name="avatar"
@@ -124,14 +142,14 @@ const EditUser = () => {
                 onChange={(e) => {
                   setAvatar(e.target.files[0]);
                   if (e.target.files) {
-                    const imagen = document.getElementById('imagen');
-                    imagen.src = URL.createObjectURL(e.target.files[0]);
+                    const image = document.getElementById("imagepreview");
+                    image.src = URL.createObjectURL(e.target.files[0]);
                   }
                 }}
               />
               <label
                 htmlFor="avatar"
-                className={deleteAvatar ? 'disabledavatarfile' : 'avatarfile'}
+                className={deleteAvatar ? "disabledavatarfile" : "avatarfile"}
               >
                 <span className="textbutton"> Avatar</span>
               </label>
@@ -173,6 +191,9 @@ const EditUser = () => {
           ></input>
           <label htmlFor="oldpassword">Password:</label>
           <input
+            id="oldpassword"
+            title="Password"
+            placeholder="Password"
             className="oldpassword"
             type="password"
             value={oldPassword}
@@ -191,4 +212,4 @@ const EditUser = () => {
   );
 };
 
-export { EditUser };
+export {EditUser};

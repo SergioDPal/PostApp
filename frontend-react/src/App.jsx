@@ -1,18 +1,18 @@
-import { NavLink, Route, Routes } from 'react-router-dom';
-import { Login } from './pages/Login/Login';
-import { Register } from './pages/Register/Register';
-import { EditUser } from './pages/EditUser/EditUser';
-import { Profile } from './pages/Profile/Profile';
-import { PhoneMenu } from './components/PhoneMenu/PhoneMenu';
-import './App.css';
+import {NavLink, Route, Routes} from "react-router-dom";
+import {Login} from "./pages/Login/Login";
+import {Register} from "./pages/Register/Register";
+import {EditUser} from "./pages/EditUser/EditUser";
+import {Profile} from "./pages/Profile/Profile";
+import {PhoneMenu} from "./components/PhoneMenu/PhoneMenu";
+import "./App.css";
 import {
   useNavigateToHomeIfNoToken,
   useNavigateToHomeIfToken,
-} from './hooks/useNavigateIfCondition';
-import { NewPost } from './pages/NewPost/NewPost';
-import { PostList } from './pages/PostList/PostList';
-import { SinglePost } from './pages/SinglePost/SinglePost';
-import { UserPostList } from './pages/UserPostList/UserPostList';
+} from "./hooks/useNavigateIfCondition";
+import {NewPost} from "./pages/NewPost/NewPost";
+import {PostList} from "./pages/PostList/PostList";
+import {SinglePost} from "./pages/SinglePost/SinglePost";
+import {UserPostList} from "./pages/UserPostList/UserPostList";
 
 function App() {
   return (
