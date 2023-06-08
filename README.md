@@ -1,5 +1,5 @@
-## Demo
-[![Button Shield]][Live Demo]
+
+
 
 # PostApp
 
@@ -15,6 +15,8 @@ PostApp is a project made to learn how to use both React and NodeJS. It's a simp
 - JWT
 
 ## Deployment
+
+[![Button Shield]][Live Demo]
 
 This project is deployed on Vercel and Firebase. You can check it out [here](https://sdiazpostapp.vercel.app/).
 
